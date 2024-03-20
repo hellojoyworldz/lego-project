@@ -30,7 +30,7 @@ function App() {
   const [computerSelect, setComputerSelect] = useState(null)
   const [result, setResult] = useState("")
 
-  const play = (userChoice) => {
+  const play = (userChoice="default") => {
     setUserSelect (choice[userChoice])
     let computerChoice = randomChoice()
     setComputerSelect(computerChoice)
@@ -38,10 +38,10 @@ function App() {
   }
 
   const judgement = (user, computer) => {
-    if(user.name === computer.name) return ["tie","tie"]
-    else if(user.name === "Rock") return computer.name === "Scissors" ?  ["win","lose"] :  ["lose","win"] 
-    else if(user.name === "Scissors") return computer.name === "Paper" ?   ["win","lose"]  :  ["lose","win"]
-    else if(user.name === "Paper") return computer.name === "Rock" ?  ["win","lose"] :  ["lose","win"]
+    if(user.name === computer.name) return "tie"
+    else if(user.name === "Rock") return computer.name === "Scissors" ? "win" : "lose"
+    else if(user.name === "Scissors") return computer.name === "Paper" ? "win" : "lose"
+    else if(user.name === "Paper") return computer.name === "Rock" ? "win" : "lose"
   }
 
   const randomChoice = () => {
@@ -55,8 +55,8 @@ function App() {
   return (
     <div>
       <div className="main">
-        <Box title="You" item={userSelect} result={result[0]} />
-        <Box title="Computer" item={computerSelect} result={result[1]}/>
+        <Box title="You" item={userSelect} result={result} />
+        <Box title="Computer" item={computerSelect} result={result}/>
       </div>
       
       <div className="main">
