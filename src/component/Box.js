@@ -1,15 +1,19 @@
 import React from 'react'
 
 const Box = (props) => {
-    console.log(props)
+  console.log(props)
   return (
-    <div className={`box ${props.result}`}>
-        <h1>{props.title}</h1>
+    <div className={`select-box ${props.result}`}>
+      
+      <div className="select-thumb">
         <img 
-            className="item-img" 
+            className="select-thumbImg" 
             src={props.item && props.item.img}
+            alt={props.result}
         />
-        <h2>{props.result}</h2>
+      </div>
+      <span className="select-tit">{props.title}</span>
+      <strong className="select-result">{props.result}</strong>
     </div>
   )
 }
