@@ -1,5 +1,7 @@
 import './App.css';
+import Score from "./component/Score"
 import Box from "./component/Box"
+import Records from './component/Records';
 import {useState} from "react"
 
 // 박스 2개 (타이틀, 사진정보, 결과)
@@ -29,19 +31,33 @@ function App() {
   const [userSelect, setUserSelect] = useState(null)
   const [computerSelect, setComputerSelect] = useState(null)
   const [result, setResult] = useState("")
+  const [userScore, setUserScore] = useState(0)
+  const [computerScore, setComputerScore] = useState(0)
+  const [totalScore, setTotalScore] = useState(0)
 
   const play = (userChoice) => {
     setUserSelect (choice[userChoice])
+
     let computerChoice = randomChoice()
     setComputerSelect(computerChoice)
-    setResult(judgement(choice[userChoice], computerChoice))
+
+    let choiceResult = judgement(choice[userChoice], computerChoice)
+    setResult(choiceResult)
+    score(choiceResult)
+    
+    setTotalScore(totalScore+1)
+  }
+
+  const score = (choiceResult) => {
+    if(choiceResult === "Win") setUserScore(userScore + 1)
+    else if(choiceResult === "Lose") setComputerScore(computerScore + 1)
   }
 
   const judgement = (user, computer) => {
-    if(user.name === computer.name) return "tie"
-    else if(user.name === "Rock") return computer.name === "Scissors" ? "win" : "lose"
-    else if(user.name === "Scissors") return computer.name === "Paper" ? "win" : "lose"
-    else if(user.name === "Paper") return computer.name === "Rock" ? "win" : "lose"
+    if(user.name === computer.name) return "Tie"
+    else if(user.name === "Rock") return computer.name === "Scissors" ? "Win" : "Lose"
+    else if(user.name === "Scissors") return computer.name === "Paper" ? "Win" : "Lose"
+    else if(user.name === "Paper") return computer.name === "Rock" ? "Win" : "Lose"
   }
 
   const randomChoice = () => {
@@ -54,66 +70,37 @@ function App() {
 
   return (
     <div className="project">
-      <h1 class="tit-lv1">Rock, Scissors, Paper</h1>
+      <h1 className="tit-lv1">Rock, Scissors, Paper</h1>
 
       <article className="score">
-        <h2 className="tit-lv2">score</h2>
+        <h2 className="tit-lv2">score({totalScore})</h2>
         <div class="score-wrapper">
-          <div className="score-box">
-            <span className="score-tit">You</span>
-            <strong className="score-point">1</strong>
-          </div>
-          <div className="score-box">
-            <span className="score-tit">computer</span>
-            <strong className="score-point">2</strong>
-          </div>
+          <Score title="You"  score={userScore}/>
+          <Score title="Computer" score={computerScore}/>
         </div>
       </article>
   
       <section>
         <h2 className="tit-lv2">play</h2>
         <div className="play-wrapper">
-          <button className="play-btn" onClick={() => play("scissors")}>✌🏻<span className="readonly">가위</span></button>
-          <button className="play-btn" onClick={() => play("rock")}>✊🏻<span className="readonly">바위</span></button>
-          <button className="play-btn" onClick={() => play("paper")}>🖐🏻<span className="readonly">보</span></button>
+          <button className="play-btn" onClick={() => play("scissors")}>✌🏻<span className="readonly">scissors</span></button>
+          <button className="play-btn" onClick={() => play("rock")}>✊🏻<span className="readonly">rock</span></button>
+          <button className="play-btn" onClick={() => play("paper")}>🖐🏻<span className="readonly">paper</span></button>
         </div>
 
-        <div class="select-wrapper">
+        <div className="select-wrapper">
           <Box title="You" item={userSelect} result={result} />
           <Box title="Computer" item={computerSelect} result={result}/>
         </div>
       </section>
-
+      {
+      /*
       <article className="records">
         <h2 className="tit-lv2">records</h2>
-        <table class="table-recoards">
-          <caption class="readonly">records: Your Choice, Computer Choice, Win</caption>
-          <colgroup>
-            <col width="33%"></col>
-            <col width="33%"></col>
-            <col width="33%"></col>
-          </colgroup>
-          <thead>
-            <tr>
-              <th>Your Choice</th>
-              <th>Computer Choice</th>
-              <th>Win</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-            </tr>
-          </tbody>
-        </table>
+        <Records userSelect={userSelect} computerChoice={computerSelect} result={result} />
       </article>
+      */
+      }
     </div>
 
   );
