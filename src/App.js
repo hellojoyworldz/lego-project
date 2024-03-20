@@ -38,10 +38,10 @@ function App() {
   }
 
   const judgement = (user, computer) => {
-    if(user.name === computer.name) return ["tie","tie"]
-    else if(user.name === "Rock") return computer.name === "Scissors" ?  ["win","lose"] :  ["lose","win"] 
-    else if(user.name === "Scissors") return computer.name === "Paper" ?   ["win","lose"]  :  ["lose","win"]
-    else if(user.name === "Paper") return computer.name === "Rock" ?  ["win","lose"] :  ["lose","win"]
+    if(user.name === computer.name) return "tie"
+    else if(user.name === "Rock") return computer.name === "Scissors" ? "win" : "lose"
+    else if(user.name === "Scissors") return computer.name === "Paper" ? "win" : "lose"
+    else if(user.name === "Paper") return computer.name === "Rock" ? "win" : "lose"
   }
 
   const randomChoice = () => {
@@ -79,8 +79,8 @@ function App() {
         </div>
 
         <div class="select-wrapper">
-          <Box title="You" item={userSelect} result={result[0]} />
-          <Box title="Computer" item={computerSelect} result={result[1]}/>
+          <Box title="You" item={userSelect} result={result} />
+          <Box title="Computer" item={computerSelect} result={result}/>
         </div>
       </section>
 
@@ -115,7 +115,7 @@ function App() {
         </table>
       </article>
     </div>
-    
+
   );
 }
 

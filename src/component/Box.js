@@ -1,10 +1,15 @@
 import React from 'react'
 
 const Box = (props) => {
-  console.log(props)
+  let result;
+  if( props.title === "computer" && props.result !== "tie" && props.result !== ""){
+    result = props.result === "win" ? "lose" : "win"
+  }else{
+    result = props.result
+  }
+
   return (
-    <div className={`select-box ${props.result}`}>
-      
+    <div className={`select-box ${result}`}>
       <div className="select-thumb">
         <img 
             className="select-thumbImg" 
@@ -13,7 +18,7 @@ const Box = (props) => {
         />
       </div>
       <span className="select-tit">{props.title}</span>
-      <strong className="select-result">{props.result}</strong>
+      <strong className="select-result">{result}</strong>
     </div>
   )
 }
