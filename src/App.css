@@ -1,0 +1,50 @@
+.weatherWrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.info{
+    position: relative;
+    padding: 32px;
+    width: 320px;
+    border: 1px solid #ddd;
+    border-radius: 32px;
+    box-sizing: border-box;
+}
+
+.info-tit-country{
+    display:inline-block;
+    vertical-align: top;
+    margin-left:4px;
+    padding: 4px 8px;
+    font-size:12px;
+    border: 1px solid #ddd;
+    border-radius:16px;
+}
+
+.info-summary{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start
+}
+
+.info-summary-temp{
+    display: block;
+    font-size: 64px;
+    line-height: 1em;
+}
+
+.info-summary-temp sup{
+    font-size:0.5em;
+}
+
+.info-list{
+    list-style:none;
+    padding-inline-start: 0px;
+}
+.info-list li{
+    margin:4px;
+}
