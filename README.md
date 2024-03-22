@@ -1,4 +1,9 @@
 # Weather App
+현재 위치 기반의 날씨를 보여줍니다.  
+
+## 링크
+https://weather-app-react-sa.netlify.app/
+
 ## 요구사항
 1. 현재 위치 기반의 날씨가 보인다.
 2. 도시, 섭씨, 화씨, 날씨상태가 보인다.
