@@ -4,6 +4,11 @@ import WeatherButton from './component/WeatherButton'
 import { ClipLoader } from 'react-spinners'
 import './App.css'
 
+const currentPositionErrorDetail = {
+  1: "The acquisition of the geolocation information failed because the page didn't have the permission to do it.",
+  2: "The acquisition of the geolocation failed because one or several internal sources of position returned an internal error.",
+  3: "Geolocation information was not obtained in the allowed time."
+}
 const cities= ['Paris', 'New york', 'Brisbane', 'Seoul']
 const flag = {
   "FR" : '🇫🇷',
@@ -18,16 +23,26 @@ function App() {
 
   const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState(null)
+  const [currentPositionError, setCurrentPositionError] = useState(null)
   const [city, setCity] = useState("")
   
   const getCurrentLocation = () => {
     setLoading(true)
     setCity("")
-    navigator.geolocation.getCurrentPosition((position) => {
-      let lat = position.coords.latitude
-      let lon = position.coords.longitude
-      getWeatherByCurrentLocation(lat, lon)
-    })
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        let lat = position.coords.latitude
+        let lon = position.coords.longitude
+        getWeatherByCurrentLocation(lat, lon)
+      }, (error) => {
+        console.log(error)
+        setCurrentPositionError({"message": error.message, "detail": currentPositionErrorDetail[error.code]})
+        setLoading(false)
+      }, {
+        timeout: 10000,
+      } 
+    )
   }
 
   const getWeatherByCurrentLocation = async (lat, lon) => {
@@ -79,10 +94,18 @@ function App() {
       loading ? (
           <ClipLoader color="#000" loading={loading} size={150} />
       ) : (
-        <>
-          <WeatherBox weather={weather} flag={flag}/>
-          <WeatherButton cities={cities} city={city} setCity={setCity} getCurrentLocation={getCurrentLocation}/>
-        </>
+
+        currentPositionError !== null ? 
+          <>
+            <h1>{currentPositionError.message}</h1>
+            <p>{currentPositionError.detail}</p>
+            <a href="/">Refresh</a>
+          </>
+        :
+          <>
+            <WeatherBox weather={weather} flag={flag}/>
+            <WeatherButton cities={cities} city={city} setCity={setCity} getCurrentLocation={getCurrentLocation}/>
+          </>
         )
     }
     </div>
