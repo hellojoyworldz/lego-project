@@ -1,9 +1,9 @@
 import React from 'react'
 
-const WeatherButton = ({cities, setCity}) => {
+const WeatherButton = ({cities, getCurrentLocation, setCity}) => {
   return (
     <div>
-      <button>Current Location</button>
+      <button onClick={getCurrentLocation}>Current Location</button>
       {
         cities.map((item,idx) => {
           return <button key={idx} onClick={() => setCity(item)}>{item}</button>
