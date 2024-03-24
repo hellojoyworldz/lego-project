@@ -4,12 +4,21 @@ import WeatherButton from './component/WeatherButton'
 import { ClipLoader } from 'react-spinners'
 import './App.css'
 
+const cities= ['Paris', 'New york', 'Brisbane', 'Seoul']
+const flag = {
+  "FR" : '🇫🇷',
+  "US" : '🇺🇸',
+  "JP" : '🇯🇵',
+  "AU" : '🇦🇺',
+  "ZA" : '🇳🇿',
+  "KR" : '🇰🇷',
+}
+
 function App() {
 
   const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState(null)
   const [city, setCity] = useState("")
-  const cities= ['Paris', 'New york', 'Osaka', 'Seoul']
   
   const getCurrentLocation = () => {
     setLoading(true)
@@ -71,7 +80,7 @@ function App() {
           <ClipLoader color="#000" loading={loading} size={150} />
       ) : (
         <>
-          <WeatherBox weather={weather} />
+          <WeatherBox weather={weather} flag={flag}/>
           <WeatherButton cities={cities} city={city} setCity={setCity} getCurrentLocation={getCurrentLocation}/>
         </>
         )
