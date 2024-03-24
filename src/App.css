@@ -49,6 +49,10 @@
     margin:4px;
 }
 
+.city{
+    text-align:center;
+}
+
 .city-button{
     margin: 8px;
     padding: 8px;
