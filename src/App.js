@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
 import WeatherBox from './component/WeatherBox'
 import WeatherButton from './component/WeatherButton'
+import { ClipLoader } from 'react-spinners'
 import './App.css'
 
 function App() {
 
+  const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState(null)
   const [city, setCity] = useState("")
   const cities= ['Paris', 'New york', 'Osaka', 'Seoul']
-
+  
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       let lat = position.coords.latitude
@@ -18,6 +20,7 @@ function App() {
   }
 
   const getWeatherByCurrentLocation = async (lat, lon) => {
+    setLoading(true)
     try{
       let url =  `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=a7b59f3fa501b9d5815cd9ea458a97a3&units=metric`
       let response = await fetch(url)
@@ -28,6 +31,7 @@ function App() {
         alert("Refreshes with incorrect response.")
         window.location.reload();
       }
+      setLoading(false)
     }catch(e){
       alert("Refreshes with error.")
       window.location.reload();
@@ -35,6 +39,7 @@ function App() {
   }
 
   const getWeatherByCity = async () => {
+    setLoading(true)
     try{
       let url =  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a7b59f3fa501b9d5815cd9ea458a97a3&units=metric`
       let response = await fetch(url)
@@ -45,6 +50,7 @@ function App() {
         alert("Refreshes with incorrect response.")
         window.location.reload();
       }
+      setLoading(false)
     }catch(e){
       alert("Refreshes with error.")
       window.location.reload();
@@ -58,8 +64,16 @@ function App() {
 
   return (
     <div className="weatherWrap">
-      <WeatherBox weather={weather} />
-      <WeatherButton cities={cities} setCity={setCity} getCurrentLocation={getCurrentLocation}/>
+    {
+      loading ? (
+          <ClipLoader color="#000" loading={loading} size={150} />
+      ) : (
+        <>
+          <WeatherBox weather={weather} />
+          <WeatherButton cities={cities} setCity={setCity} getCurrentLocation={getCurrentLocation}/>
+        </>
+        )
+    }
     </div>
   );
 }
