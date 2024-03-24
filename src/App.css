@@ -48,3 +48,20 @@
 .info-list li{
     margin:4px;
 }
+
+.city-button{
+    margin: 8px;
+    padding: 8px;
+    font-size: 16px;
+    background:#fff;
+    border:0px;
+    cursor: pointer
+}
+.city-button:hover{
+    border-bottom: 1px solid #ddd;
+}
+
+.city-button.active{
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
