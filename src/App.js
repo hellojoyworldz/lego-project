@@ -12,6 +12,8 @@ function App() {
   const cities= ['Paris', 'New york', 'Osaka', 'Seoul']
   
   const getCurrentLocation = () => {
+    setLoading(true)
+    setCity("")
     navigator.geolocation.getCurrentPosition((position) => {
       let lat = position.coords.latitude
       let lon = position.coords.longitude
@@ -70,7 +72,7 @@ function App() {
       ) : (
         <>
           <WeatherBox weather={weather} />
-          <WeatherButton cities={cities} setCity={setCity} getCurrentLocation={getCurrentLocation}/>
+          <WeatherButton cities={cities} city={city} setCity={setCity} getCurrentLocation={getCurrentLocation}/>
         </>
         )
     }
