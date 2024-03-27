@@ -1,0 +1,137 @@
+.project{
+  margin: 0 auto;
+  padding: 16px;
+  max-width: 860px;
+}
+
+.readonly{
+  position: absolute;
+  left: -999999px;
+  top: -999999px;
+  font-size:1px;
+  width:1px;
+  height:1px;
+}
+
+.tit-lv1{
+  font-size: 40px;
+  text-align:center;
+}
+
+.tit-lv2{
+  font-size: 32px;
+  text-align:center;
+}
+
+.score-wrapper{
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 32px;
+}
+
+.score-box{
+  width: 50%;
+}
+
+.score-tit{
+  display: block;
+  text-align: center;
+  font-size: 24px;
+}
+
+.score-point{
+  display: block;
+  text-align: center;
+  font-size: 48px;
+}
+
+.select-wrapper{
+  display: flex;
+  justify-content: space-between;
+}
+
+.select-box{
+  margin-top: 2%;
+  padding: 32px;
+  width: 49%;
+  border: 1px solid #ddd;
+  border-radius: 32px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.select-boxWin{
+  border-color: #a9dc59;
+}
+
+.select-boxLose{
+  border-color: #f17455;
+}
+
+.select-tit{
+  display: block;
+  text-align: center;
+  font-size: 24px;
+}
+
+.select-result{
+  display: block;
+  text-align: center;
+  font-size: 40px;
+}
+
+.select-thumb{
+  position: relative;
+  width: 100%;
+  text-align:center;
+}
+
+.select-thumb:after{
+  content:'';
+  display:block;
+  padding-bottom: 100%;
+}
+
+.select-thumbBox{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.select-thumbImg{
+  height: 100%;
+}
+
+.play-wrapper{
+  display: flex;
+  justify-content: center;
+  border: 1px solid #ddd;
+  border-radius: 32px;
+}
+
+.play-btn{
+  padding: 16px;
+  font-size: 48px;
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+}
+
+.records-table{
+  width: 100%;
+  text-align: center;
+  border-bottom:1px solid #ddd;
+  border-spacing: 0px;
+  border-collapse:separate;
+}
+
+.records-table th,
+.records-table td{
+  padding: 16px;
+  border-style:solid;
+  border-color: #ddd;
+  border-width: 1px 0 0 0;
+}
+
