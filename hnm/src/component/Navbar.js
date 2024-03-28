@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const menuList = [
@@ -18,21 +19,26 @@ const Navbar = () => {
     <div>
       <div>
         <div className="login-button">
-          <FontAwesomeIcon icon={faUser} />
-          <div>로그인</div>
+          <Link to="/login">
+            <FontAwesomeIcon icon={faUser} />
+            로그인
+          </Link>
         </div>
       </div>
       <div className="nav-section">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/2560px-H%26M-Logo.svg.png"
-          width={100}
-          alt=""
-        />
+        <Link to="/">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/2560px-H%26M-Logo.svg.png"
+            width={100}
+            height={65}
+            alt=""
+          />
+        </Link>
       </div>
       <div className="menu-area">
         <ul className="menu-list">
-          {menuList.map((menu) => (
-            <li>{menu}</li>
+          {menuList.map((menu, idx) => (
+            <li key={idx}>{menu}</li>
           ))}
         </ul>
         <div className="search-bar">

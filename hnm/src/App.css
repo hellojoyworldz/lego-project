@@ -4,6 +4,11 @@
     margin: 32px;
 }
 
+.login-button a{
+    color:#000;
+    text-decoration: none;
+}
+
 .nav-section{
     display: flex;
     justify-content: center;
