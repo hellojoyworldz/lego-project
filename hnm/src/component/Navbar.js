@@ -23,6 +23,7 @@ const Navbar = ({ authenticate, setAuthenticate, cate, setCate }) => {
 
   const logout = () => {
     setAuthenticate(false);
+    setCate("All");
     navigate("/");
   };
 
