@@ -30,10 +30,10 @@ const Navbar = ({ authenticate, setAuthenticate, cate, setCate }) => {
       <div>
         <div className="login-button">
           {authenticate ? (
-            <div onClick={logout}>
+            <button type="button" onClick={logout}>
               <FontAwesomeIcon icon={faUser} />
               로그아웃
-            </div>
+            </button>
           ) : (
             <Link to="/login">
               <FontAwesomeIcon icon={faUser} />
