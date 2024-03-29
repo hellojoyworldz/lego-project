@@ -15,6 +15,16 @@ const Navbar = () => {
     "Sale",
     "지속가능성",
   ];
+
+  const navigate = useNavigate();
+
+  const search = (e) => {
+    if (e.key === "Enter") {
+      let keyword = e.target.value;
+      navigate(`/?q=${keyword}`);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -43,7 +53,7 @@ const Navbar = () => {
         </ul>
         <div className="search-bar">
           <FontAwesomeIcon icon={faMagnifyingGlass} />
-          <input type="text" />
+          <input type="text" onKeyPress={(e) => search(e)} />
         </div>
       </div>
     </div>
