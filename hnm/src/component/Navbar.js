@@ -11,6 +11,7 @@ const Navbar = ({ authenticate, setAuthenticate, cate, setCate }) => {
 
   const changeCate = (menu) => {
     setCate(menu);
+    navigate("/");
   };
 
   const search = (e) => {
