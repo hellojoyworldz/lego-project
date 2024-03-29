@@ -7,10 +7,10 @@ const ProductAll = () => {
   const getProduct = async () => {
     // let url = "http://localhost:3004/products";
     let url =
-      "https://gist.githubusercontent.com/legobitna/24cf11ae95d53c9cdcdc7b0040f059e9/raw/e55a200f0461fb1ba866a9fc86332b27e234d5a0/db.json";
+      "https://my-json-server.typicode.com/hellojoyworldz/lego-project/products";
     let response = await fetch(url);
     let data = await response.json();
-    setProductList(data.products);
+    setProductList(data);
   };
   useEffect(() => {
     getProduct();
