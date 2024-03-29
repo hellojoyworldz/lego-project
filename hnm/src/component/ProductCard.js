@@ -13,7 +13,7 @@ const ProductCard = ({ item }) => {
       </div>
       <div className="choice">{item?.choice ? "Conscious choice" : ""}</div>
       <div className="title">{item?.title}</div>
-      <div className="price">{item?.price}</div>
+      <div className="price">₩{item?.price.toLocaleString("ko-KR")}</div>
       <div className="new">{item?.new ? "NEW" : ""}</div>
     </div>
   );

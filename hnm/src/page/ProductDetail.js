@@ -31,7 +31,9 @@ const ProductDetail = () => {
           </Col>
           <Col>
             <div className="m-2 display-6 ">{product?.title}</div>
-            <div className="price m-2">{product?.price}</div>
+            <div className="price m-2">
+              ₩{product?.price.toLocaleString("ko-KR")}
+            </div>
             <div className="choice m-2">{product?.choice}</div>
             <Dropdown className="m-2">
               <Dropdown.Toggle variant="outline-dark" id="dropdown-basic">
