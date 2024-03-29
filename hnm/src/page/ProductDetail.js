@@ -1,31 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Container, Row, Col, Dropdown, Button } from "react-bootstrap";
 
 const ProductDetail = () => {
+  let { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const getProductDetail = async () => {
+    let url = `http://localhost:3004/products/${id}`;
+    let response = await fetch(url);
+    let data = await response.json();
+    setProduct(data);
+  };
+
+  const [selectSize, setSelectSize] = useState(null);
+  const changeSize = (v) => {
+    setSelectSize(v);
+  };
+
+  useEffect(() => {
+    getProductDetail();
+  }, []);
+
   return (
     <div className="card-detail">
       <Container>
         <Row>
           <Col>
-            <img
-              src="https://noona-hnm.netlify.app/pattern-jacket.jpeg"
-              widt={564}
-              height={846}
-              alt=""
-            />
+            <img src={product?.img} widt={564} height={846} alt="" />
           </Col>
           <Col>
-            <div className="m-2 display-6 ">title</div>
-            <div className="price m-2">price</div>
-            <div className="choice m-2">choice</div>
+            <div className="m-2 display-6 ">{product?.title}</div>
+            <div className="price m-2">{product?.price}</div>
+            <div className="choice m-2">{product?.choice}</div>
             <Dropdown className="m-2">
               <Dropdown.Toggle variant="outline-dark" id="dropdown-basic">
-                Sizes
+                {selectSize ? selectSize : "Sizes"}
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                {product?.size.map((v, idx) => (
+                  <Dropdown.Item onClick={() => changeSize(v)} key={idx}>
+                    {v}
+                  </Dropdown.Item>
+                ))}
               </Dropdown.Menu>
             </Dropdown>
             <Button className="w-100 m-2" variant="dark">
