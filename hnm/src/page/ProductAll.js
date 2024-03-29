@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import ProductCard from "../component/ProductCard";
 
-const ProductAll = ({ cate }) => {
+const ProductAll = ({ cate, setCate }) => {
   const [productList, setProductList] = useState(null);
   const [query, setQuery] = useSearchParams();
 
@@ -28,6 +28,10 @@ const ProductAll = ({ cate }) => {
     getProduct();
   }, [query, cate]);
 
+  useEffect(() => {
+    if (cate === "") setCate("All");
+  }, []);
+
   return (
     <div>
       <Container>
@@ -40,7 +44,7 @@ const ProductAll = ({ cate }) => {
               </Col>
             ))}
 
-          {productList?.length === 0 && (
+          {!productList && productList?.length === 0 && (
             <Col className="text-center">검색한 상품이 없습니다</Col>
           )}
         </Row>

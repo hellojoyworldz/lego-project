@@ -3,16 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { Container, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
-const Login = ({ setAuthenticate, setKeyword }) => {
+const Login = ({ setAuthenticate, setCate, setKeyword }) => {
   const navigate = useNavigate();
   const loginUser = (e) => {
     e.preventDefault();
     setAuthenticate(true);
+    setCate("All");
     setKeyword("");
     navigate("/");
   };
 
   useEffect(() => {
+    setCate("");
     setKeyword("");
   }, []);
 

@@ -27,11 +27,18 @@ function App() {
         setKeyword={setKeyword}
       />
       <Routes>
-        <Route path="/" element={<ProductAll cate={cate} />} />
+        <Route
+          path="/"
+          element={<ProductAll cate={cate} setCate={setCate} />}
+        />
         <Route
           path="/login"
           element={
-            <Login setAuthenticate={setAuthenticate} setKeyword={setKeyword} />
+            <Login
+              setAuthenticate={setAuthenticate}
+              setCate={setCate}
+              setKeyword={setKeyword}
+            />
           }
         />
         <Route
