@@ -9,14 +9,21 @@ import PrivateRoute from "./route/PrivateRoute";
 
 function App() {
   const [authenticate, setAuthenticate] = useState(false);
+  const [cate, setCate] = useState("All");
   useEffect(() => {
-    console.log(authenticate);
+    //console.log(authenticate);
   }, [authenticate]);
+
   return (
     <div className="">
-      <Navbar authenticate={authenticate} setAuthenticate={setAuthenticate} />
+      <Navbar
+        authenticate={authenticate}
+        setAuthenticate={setAuthenticate}
+        cate={cate}
+        setCate={setCate}
+      />
       <Routes>
-        <Route path="/" element={<ProductAll />} />
+        <Route path="/" element={<ProductAll cate={cate} />} />
         <Route
           path="/login"
           element={<Login setAuthenticate={setAuthenticate} />}

@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import ProductCard from "../component/ProductCard";
 
-const ProductAll = () => {
+const ProductAll = ({ cate }) => {
   const [productList, setProductList] = useState([]);
   const [query, setQuery] = useSearchParams();
   const getProduct = async () => {
@@ -12,11 +12,22 @@ const ProductAll = () => {
     let url = `https://my-json-server.typicode.com/hellojoyworldz/lego-project/products?q=${searchQuery}`;
     let response = await fetch(url);
     let data = await response.json();
-    setProductList(data);
+    let datadataList = [];
+
+    data.map((v) => {
+      if (cate === "New" && v.new === true) datadataList.push(v);
+      else if (cate === "Conscious choice" && v.choice === true)
+        datadataList.push(v);
+      else if (cate === "All") datadataList.push(v);
+    });
+
+    console.log(datadataList);
+    setProductList(datadataList);
   };
   useEffect(() => {
     getProduct();
-  }, [query]);
+  }, [query, cate]);
+
   return (
     <div>
       <Container>

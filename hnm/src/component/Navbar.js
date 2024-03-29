@@ -4,19 +4,14 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 
-const Navbar = ({ authenticate, setAuthenticate }) => {
-  const menuList = [
-    "여성",
-    "Divided",
-    "남성",
-    "신생아/유아",
-    "아동",
-    "H&M Home",
-    "Sale",
-    "지속가능성",
-  ];
+const Navbar = ({ authenticate, setAuthenticate, cate, setCate }) => {
+  const menuList = ["All", "New", "Conscious choice"];
 
   const navigate = useNavigate();
+
+  const changeCate = (menu) => {
+    setCate(menu);
+  };
 
   const search = (e) => {
     if (e.key === "Enter") {
@@ -60,7 +55,12 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
       <div className="menu-area">
         <ul className="menu-list">
           {menuList.map((menu, idx) => (
-            <li key={idx}>{menu}</li>
+            <li
+              key={idx}
+              onClick={() => changeCate(menu)}
+              className={cate === menu ? "active" : ""}>
+              {menu}
+            </li>
           ))}
         </ul>
         <div className="search-bar">
