@@ -43,7 +43,7 @@ const Navbar = ({ authenticate, setAuthenticate, cate, setCate }) => {
         </div>
       </div>
       <div className="nav-section">
-        <Link to="/">
+        <Link to="/" onClick={() => changeCate("All")}>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/2560px-H%26M-Logo.svg.png"
             width={100}
