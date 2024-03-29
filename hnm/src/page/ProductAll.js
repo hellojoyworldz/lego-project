@@ -21,7 +21,6 @@ const ProductAll = ({ cate }) => {
       else if (cate === "All") datadataList.push(v);
     });
 
-    console.log(datadataList);
     setProductList(datadataList);
   };
   useEffect(() => {
