@@ -4,8 +4,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import ProductCard from "../component/ProductCard";
 
 const ProductAll = ({ cate }) => {
-  const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState(null);
   const [query, setQuery] = useSearchParams();
+
   const getProduct = async () => {
     let searchQuery = query.get("q") || "";
     // let url = "http://localhost:3004/products";
@@ -30,13 +31,18 @@ const ProductAll = ({ cate }) => {
   return (
     <div>
       <Container>
-        <div className="mb-4">Total: {productList.length}</div>
+        <div className="mb-4">Total: {productList?.length}</div>
         <Row>
-          {productList.map((menu, idx) => (
-            <Col lg={3} md={6} sm={12} key={idx} className="mb-4">
-              <ProductCard item={menu} />
-            </Col>
-          ))}
+          {productList &&
+            productList.map((menu, idx) => (
+              <Col lg={3} md={6} sm={12} key={idx} className="mb-4">
+                <ProductCard item={menu} />
+              </Col>
+            ))}
+
+          {productList?.length === 0 && (
+            <Col className="text-center">검색한 상품이 없습니다</Col>
+          )}
         </Row>
       </Container>
     </div>
