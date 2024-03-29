@@ -4,7 +4,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ authenticate, setAuthenticate }) => {
   const menuList = [
     "여성",
     "Divided",
@@ -25,14 +25,26 @@ const Navbar = () => {
     }
   };
 
+  const logout = () => {
+    setAuthenticate(false);
+    navigate("/");
+  };
+
   return (
     <div>
       <div>
         <div className="login-button">
-          <Link to="/login">
-            <FontAwesomeIcon icon={faUser} />
-            로그인
-          </Link>
+          {authenticate ? (
+            <div onClick={logout}>
+              <FontAwesomeIcon icon={faUser} />
+              로그아웃
+            </div>
+          ) : (
+            <Link to="/login">
+              <FontAwesomeIcon icon={faUser} />
+              로그인
+            </Link>
+          )}
         </div>
       </div>
       <div className="nav-section">
