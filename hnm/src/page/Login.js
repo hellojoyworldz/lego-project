@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
-const Login = ({ setAuthenticate }) => {
+const Login = ({ setAuthenticate, setKeyword }) => {
   const navigate = useNavigate();
   const loginUser = (e) => {
     e.preventDefault();
     setAuthenticate(true);
+    setKeyword("");
     navigate("/");
   };
+
+  useEffect(() => {
+    setKeyword("");
+  }, []);
+
   return (
     <Container>
       <Form onSubmit={(e) => loginUser(e)}>

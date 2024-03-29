@@ -1,22 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 
-const Navbar = ({ authenticate, setAuthenticate, cate, setCate }) => {
+const Navbar = ({
+  authenticate,
+  setAuthenticate,
+  cate,
+  setCate,
+  keyword,
+  setKeyword,
+}) => {
   const menuList = ["All", "New", "Conscious choice"];
 
   const navigate = useNavigate();
 
   const changeCate = (menu) => {
     setCate(menu);
+    setKeyword("");
     navigate("/");
+  };
+
+  const changeKeyword = (e) => {
+    setKeyword(e.target.value);
   };
 
   const search = (e) => {
     if (e.key === "Enter") {
       let keyword = e.target.value;
+      setKeyword(keyword);
       navigate(`/?q=${keyword}`);
     }
   };
@@ -24,6 +37,7 @@ const Navbar = ({ authenticate, setAuthenticate, cate, setCate }) => {
   const logout = () => {
     setAuthenticate(false);
     setCate("All");
+    setKeyword("");
     navigate("/");
   };
 
@@ -67,7 +81,12 @@ const Navbar = ({ authenticate, setAuthenticate, cate, setCate }) => {
         </ul>
         <div className="search-bar">
           <FontAwesomeIcon icon={faMagnifyingGlass} />
-          <input type="text" onKeyPress={(e) => search(e)} />
+          <input
+            type="text"
+            value={keyword}
+            onChange={changeKeyword}
+            onKeyPress={(e) => search(e)}
+          />
         </div>
       </div>
     </div>

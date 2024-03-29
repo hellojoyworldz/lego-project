@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Dropdown, Button } from "react-bootstrap";
 
-const ProductDetail = () => {
+const ProductDetail = ({ setKeyword }) => {
   let { id } = useParams();
   const [product, setProduct] = useState(null);
   const getProductDetail = async () => {
@@ -20,6 +20,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     getProductDetail();
+    setKeyword("");
   }, []);
 
   return (

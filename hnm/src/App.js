@@ -10,6 +10,8 @@ import PrivateRoute from "./route/PrivateRoute";
 function App() {
   const [authenticate, setAuthenticate] = useState(false);
   const [cate, setCate] = useState("All");
+  const [keyword, setKeyword] = useState("");
+
   useEffect(() => {
     //console.log(authenticate);
   }, [authenticate]);
@@ -21,16 +23,22 @@ function App() {
         setAuthenticate={setAuthenticate}
         cate={cate}
         setCate={setCate}
+        keyword={keyword}
+        setKeyword={setKeyword}
       />
       <Routes>
         <Route path="/" element={<ProductAll cate={cate} />} />
         <Route
           path="/login"
-          element={<Login setAuthenticate={setAuthenticate} />}
+          element={
+            <Login setAuthenticate={setAuthenticate} setKeyword={setKeyword} />
+          }
         />
         <Route
           path="/product/:id"
-          element={<PrivateRoute authenticate={authenticate} />}
+          element={
+            <PrivateRoute authenticate={authenticate} setKeyword={setKeyword} />
+          }
         />
       </Routes>
     </div>
