@@ -27,10 +27,12 @@ const ProductDetail = ({ setKeyword }) => {
     <div className="card-detail">
       <Container>
         <Row>
-          <Col>
-            <img src={product?.img} widt={564} height={846} alt="" />
+          <Col lg={6} md={12}>
+            <div class="thumb">
+              <img src={product?.img} widt={636} height={954} alt="" />
+            </div>
           </Col>
-          <Col>
+          <Col lg={6} md={12}>
             <div className="m-2 display-6 ">{product?.title}</div>
             <div className="price m-2">
               ₩{product?.price.toLocaleString("ko-KR")}

@@ -74,6 +74,11 @@
     scale:1.05
 }
 
+.card-detail .thumb img{
+    width: 100%;
+    height: auto;
+}
+
 @media (max-width: 992px){
     .menu-area{
         flex-direction: column;
