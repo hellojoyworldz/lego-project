@@ -1,0 +1,32 @@
+.App{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.count{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+    width: 13rem;
+    height: 13rem;
+    font-size: 5rem;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+}
+
+.button{
+    margin: 0.5rem;
+    width: 6rem;
+    height: 6rem;
+    font-size: 5rem;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+}
+.button:active{
+    box-shadow: inset 3px 3px 3px 3px rgb(221 221 221 / 10%), inset -3px -3px 3px 3px rgb(221 221 221 / 10%);
+}
