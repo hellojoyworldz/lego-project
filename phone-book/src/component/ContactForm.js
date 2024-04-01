@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import InputText from "./InputText";
 import Button from "./Button";
 import { useDispatch } from "react-redux";
