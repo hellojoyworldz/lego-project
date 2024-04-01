@@ -5,17 +5,27 @@ import { useDispatch } from "react-redux";
 
 const ContactForm = () => {
   const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState(0);
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const dispatch = useDispatch();
 
   const addContact = (event) => {
     event.preventDefault();
-    dispatch({ type: "ADD_CONTACT", payload: { name, phoneNumber } });
-    setName("");
-    setPhoneNumber("");
-    event.target.name.value = "";
-    event.target.phonenumber.value = "";
+    if (event.target.name.value === "") {
+      alert("Enter name");
+      event.target.name.focus();
+      return;
+    } else if (event.target.phonenumber.value === "") {
+      alert("Enter phone number");
+      event.target.phonenumber.focus();
+      return;
+    } else {
+      dispatch({ type: "ADD_CONTACT", payload: { name, phoneNumber } });
+      setName("");
+      setPhoneNumber("");
+      event.target.name.value = "";
+      event.target.phonenumber.value = "";
+    }
   };
 
   return (
@@ -36,6 +46,7 @@ const ContactForm = () => {
           instructions="Enter phone number"
           setPhoneNumber={setPhoneNumber}
           setChange={(event) => {
+            event.target.value = event.target.value.replace(/[^0-9]/g, "");
             setPhoneNumber(event.target.value);
           }}
         />
