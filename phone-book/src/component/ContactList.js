@@ -19,7 +19,7 @@ const ContactList = () => {
   return (
     <div>
       <Search />
-      total: {filterConcatList.length}
+      <p className="mt-1 mb-4 text-right">total: {filterConcatList.length}</p>
       {filterConcatList.map((item, idx) => (
         <Item item={item} key={idx} />
       ))}

@@ -10,7 +10,6 @@ const Search = () => {
   const searchKeyword = (event) => {
     event.preventDefault();
     dispatch({ type: "SEARCH_KEYWORD", payload: { keyword } });
-    event.target.search.value = "";
   };
 
   useEffect(() => {
@@ -26,8 +25,7 @@ const Search = () => {
             instructions="name"
             titlehidden
             setKeyword={setKeyword}
-            onChange=""
-            setChage={(event) => setKeyword(event.target.value)}
+            setChange={(event) => setKeyword(event.target.value)}
           />
         </div>
         <div className="basis-1/6">
