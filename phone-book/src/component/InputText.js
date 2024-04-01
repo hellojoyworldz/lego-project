@@ -2,11 +2,11 @@ import React from "react";
 
 const InputText = (props) => {
   const name = props?.title?.split(" ").join("").toLowerCase();
-  console.log(props.setChage);
+  console.log(props.setInput);
   return (
     <div>
       {!props.titlehidden ? (
-        <label htmlFor={`required-${props.name}`} className="text-gray-700">
+        <label htmlFor={`required-${name}`} className="text-gray-700">
           {props.title}
         </label>
       ) : (
