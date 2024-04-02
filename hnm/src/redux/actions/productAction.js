@@ -21,7 +21,6 @@ function getProductDetail(id) {
     let url = `https://my-json-server.typicode.com/hellojoyworldz/lego-project/products/${id}`;
     let response = await fetch(url);
     let data = await response.json();
-    console.log(data);
     dispatch({ type: "GET_ITEM_SUCCESS", payload: { data } });
   };
 }
