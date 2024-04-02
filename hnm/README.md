@@ -1,4 +1,4 @@
-# HNM (React Rouer)
+# H&M (React Rouer, Redux Middleware)
 
 ## 링크
 
