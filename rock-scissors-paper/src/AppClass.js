@@ -79,7 +79,7 @@ export default class AppClass extends Component {
 
         <article className="score">
           <h2 className="tit-lv2">score({this.state.totalScore})</h2>
-          <div class="score-wrapper">
+          <div className="score-wrapper">
             <ScoreClass title="You" score={this.state.userScore} />
             <ScoreClass title="Computer" score={this.state.computerScore} />
           </div>
@@ -87,6 +87,20 @@ export default class AppClass extends Component {
 
         <section>
           <h2 className="tit-lv2">play</h2>
+
+          <div className="select-wrapper">
+            <BoxClass
+              title="You"
+              item={this.state.userSelect}
+              result={this.state.result}
+            />
+            <BoxClass
+              title="Computer"
+              item={this.state.computerSelect}
+              result={this.state.result}
+            />
+          </div>
+
           <div className="play-wrapper">
             <button className="play-btn" onClick={() => this.play("scissors")}>
               ✌🏻<span className="readonly">scissors</span>
@@ -97,19 +111,6 @@ export default class AppClass extends Component {
             <button className="play-btn" onClick={() => this.play("paper")}>
               🖐🏻<span className="readonly">paper</span>
             </button>
-          </div>
-
-          <div className="select-wrapper">
-            <BoxClass
-              title="You"
-              item={this.state.serSelect}
-              result={this.state.result}
-            />
-            <BoxClass
-              title="Computer"
-              item={this.state.computerSelect}
-              result={this.state.result}
-            />
           </div>
         </section>
       </div>

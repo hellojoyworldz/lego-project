@@ -24,10 +24,10 @@ export default class BoxClass extends Component {
     return (
       <div className={`select-box select-box${this.result}`}>
         <div className="select-thumb">
-          <div class="select-thumbBox">
+          <div className="select-thumbBox">
             <img
               className="select-thumbImg"
-              src={(this.props.item && this.props.item.img) || this.defaultImg}
+              src={this.props.item?.img || this.defaultImg}
               alt={this.result}
             />
           </div>

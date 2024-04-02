@@ -76,7 +76,7 @@ function App() {
 
       <article className="score">
         <h2 className="tit-lv2">score({totalScore})</h2>
-        <div class="score-wrapper">
+        <div className="score-wrapper">
           <Score title="You" score={userScore} />
           <Score title="Computer" score={computerScore} />
         </div>

@@ -1,29 +1,29 @@
-.project{
+.project {
   margin: 0 auto;
   padding: 16px;
   max-width: 860px;
 }
 
-.readonly{
+.readonly {
   position: absolute;
   left: -999999px;
   top: -999999px;
-  font-size:1px;
-  width:1px;
-  height:1px;
+  font-size: 1px;
+  width: 1px;
+  height: 1px;
 }
 
-.tit-lv1{
+.tit-lv1 {
   font-size: 40px;
-  text-align:center;
+  text-align: center;
 }
 
-.tit-lv2{
+.tit-lv2 {
   font-size: 32px;
-  text-align:center;
+  text-align: center;
 }
 
-.score-wrapper{
+.score-wrapper {
   display: flex;
   justify-content: center;
   padding: 16px;
@@ -31,29 +31,30 @@
   border-radius: 32px;
 }
 
-.score-box{
+.score-box {
   width: 50%;
 }
 
-.score-tit{
+.score-tit {
   display: block;
   text-align: center;
   font-size: 24px;
 }
 
-.score-point{
+.score-point {
   display: block;
   text-align: center;
   font-size: 48px;
 }
 
-.select-wrapper{
+.select-wrapper {
   display: flex;
   justify-content: space-between;
+  margin: 32px 0;
 }
 
-.select-box{
-  margin-top: 2%;
+.select-box {
+  margin-top: 0 2%;
   padding: 32px;
   width: 49%;
   border: 1px solid #ddd;
@@ -62,56 +63,56 @@
   overflow: hidden;
 }
 
-.select-boxWin{
+.select-boxWin {
   border-color: #a9dc59;
 }
 
-.select-boxLose{
+.select-boxLose {
   border-color: #f17455;
 }
 
-.select-tit{
+.select-tit {
   display: block;
   text-align: center;
   font-size: 24px;
 }
 
-.select-result{
+.select-result {
   display: block;
   text-align: center;
   font-size: 40px;
 }
 
-.select-thumb{
+.select-thumb {
   position: relative;
   width: 100%;
-  text-align:center;
+  text-align: center;
 }
 
-.select-thumb:after{
-  content:'';
-  display:block;
+.select-thumb:after {
+  content: "";
+  display: block;
   padding-bottom: 100%;
 }
 
-.select-thumbBox{
+.select-thumbBox {
   position: absolute;
   width: 100%;
   height: 100%;
 }
 
-.select-thumbImg{
+.select-thumbImg {
   height: 100%;
 }
 
-.play-wrapper{
+.play-wrapper {
   display: flex;
   justify-content: center;
   border: 1px solid #ddd;
   border-radius: 32px;
 }
 
-.play-btn{
+.play-btn {
   padding: 16px;
   font-size: 48px;
   background-color: transparent;
@@ -119,19 +120,18 @@
   cursor: pointer;
 }
 
-.records-table{
+.records-table {
   width: 100%;
   text-align: center;
-  border-bottom:1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   border-spacing: 0px;
-  border-collapse:separate;
+  border-collapse: separate;
 }
 
 .records-table th,
-.records-table td{
+.records-table td {
   padding: 16px;
-  border-style:solid;
+  border-style: solid;
   border-color: #ddd;
   border-width: 1px 0 0 0;
 }
-

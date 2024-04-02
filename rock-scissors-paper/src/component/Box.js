@@ -17,7 +17,7 @@ const Box = (props) => {
   return (
     <div className={`select-box select-box${result}`}>
       <div className="select-thumb">
-        <div class="select-thumbBox">
+        <div className="select-thumbBox">
           <img
             className="select-thumbImg"
             src={(props.item && props.item.img) || defaultImg}
