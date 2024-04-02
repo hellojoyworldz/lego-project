@@ -4,13 +4,6 @@ import Box from "./component/Box";
 import Records from "./component/Records";
 import { useState } from "react";
 
-// 박스 2개 (타이틀, 사진정보, 결과)
-// 가위, 바위, 보 버튼이 있다
-// 버튼을 클릭하면 클릭한 값이 박스에 보임
-// 컴퓨터는 랜덤하게 아아템 선택이 된다
-// 3,4의 결과를 가지고 누가 이겼는지 승패를 따진다
-// 승패결과에 따라 테두리 색이 바뀐다 (지면 빨강, 이기면 초록, 비기면 검정)
-
 const choice = {
   rock: {
     name: "Rock",
