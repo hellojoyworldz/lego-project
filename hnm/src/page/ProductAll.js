@@ -1,28 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import ProductCard from "../component/ProductCard";
+import { productAction } from "../redux/actions/productAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductAll = ({ cate, setCate }) => {
-  const [productList, setProductList] = useState(null);
+  const productList = useSelector((state) => state.product.productList);
   const [query, setQuery] = useSearchParams();
-
-  const getProduct = async () => {
+  const dispatch = useDispatch();
+  const getProduct = () => {
     let searchQuery = query.get("q") || "";
-    // let url = "http://localhost:3004/products";
-    let url = `https://my-json-server.typicode.com/hellojoyworldz/lego-project/products?q=${searchQuery}`;
-    let response = await fetch(url);
-    let data = await response.json();
-    let datadataList = [];
-
-    data.map((v) => {
-      if (cate === "New" && v.new === true) datadataList.push(v);
-      else if (cate === "Conscious choice" && v.choice === true)
-        datadataList.push(v);
-      else if (cate === "All") datadataList.push(v);
-    });
-
-    setProductList(datadataList);
+    dispatch(productAction.getProducts(searchQuery, cate));
   };
   useEffect(() => {
     getProduct();

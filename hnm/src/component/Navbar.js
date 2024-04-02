@@ -3,17 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { authenticateAction } from "../redux/actions/authencticateAction";
 
-const Navbar = ({
-  authenticate,
-  setAuthenticate,
-  cate,
-  setCate,
-  keyword,
-  setKeyword,
-}) => {
+const Navbar = ({ cate, setCate, keyword, setKeyword }) => {
   const menuList = ["All", "New", "Conscious choice"];
+  const authenticate = useSelector((state) => state.auth.authenticate);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const changeCate = (menu) => {
@@ -35,7 +32,7 @@ const Navbar = ({
   };
 
   const logout = () => {
-    setAuthenticate(false);
+    dispatch(authenticateAction.logout());
     setCate("All");
     setKeyword("");
     navigate("/");

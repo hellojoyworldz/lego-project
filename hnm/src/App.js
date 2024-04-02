@@ -1,26 +1,22 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import ProductAll from "./page/ProductAll";
 import Login from "./page/Login";
 import PrivateRoute from "./route/PrivateRoute";
+import { useSelector } from "react-redux";
 
 function App() {
-  const [authenticate, setAuthenticate] = useState(false);
+  const authenticate = useSelector((state) => state.auth.authenticate);
   const [cate, setCate] = useState("All");
   const [keyword, setKeyword] = useState("");
-
-  useEffect(() => {
-    //console.log(authenticate);
-  }, [authenticate]);
 
   return (
     <div className="">
       <Navbar
         authenticate={authenticate}
-        setAuthenticate={setAuthenticate}
         cate={cate}
         setCate={setCate}
         keyword={keyword}
@@ -33,13 +29,7 @@ function App() {
         />
         <Route
           path="/login"
-          element={
-            <Login
-              setAuthenticate={setAuthenticate}
-              setCate={setCate}
-              setKeyword={setKeyword}
-            />
-          }
+          element={<Login setCate={setCate} setKeyword={setKeyword} />}
         />
         <Route
           path="/product/:id"

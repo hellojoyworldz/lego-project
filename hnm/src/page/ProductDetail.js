@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Dropdown, Button } from "react-bootstrap";
+import { productAction } from "../redux/actions/productAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductDetail = ({ setKeyword }) => {
   let { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const getProductDetail = async () => {
-    // let url = `http://localhost:3004/products/${id}`;
-    let url = `https://my-json-server.typicode.com/hellojoyworldz/lego-project/products/${id}`;
-    let response = await fetch(url);
-    let data = await response.json();
-    setProduct(data);
+  const product = useSelector((state) => state.product.productItem);
+
+  const dispatch = useDispatch();
+  const getProductDetail = () => {
+    dispatch(productAction.getProductDetail(id));
   };
 
   const [selectSize, setSelectSize] = useState(null);
@@ -28,16 +28,16 @@ const ProductDetail = ({ setKeyword }) => {
       <Container>
         <Row>
           <Col lg={6} md={12}>
-            <div class="thumb">
+            <div className="thumb">
               <img src={product?.img} widt={636} height={954} alt="" />
             </div>
           </Col>
           <Col lg={6} md={12}>
             <div className="m-2 display-6 ">{product?.title}</div>
-            <div className="price m-2">
+            <div className="m-2 price">
               ₩{product?.price.toLocaleString("ko-KR")}
             </div>
-            <div className="choice m-2">{product?.choice}</div>
+            <div className="m-2 choice">{product?.choice}</div>
             <Dropdown className="m-2">
               <Dropdown.Toggle variant="outline-dark" id="dropdown-basic">
                 {selectSize ? selectSize : "Sizes"}
@@ -50,7 +50,7 @@ const ProductDetail = ({ setKeyword }) => {
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-            <Button className="w-100 m-2" variant="dark">
+            <Button className="m-2 w-100" variant="dark">
               Add to Bag
             </Button>
           </Col>
