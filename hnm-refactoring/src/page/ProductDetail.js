@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Dropdown, Button } from "react-bootstrap";
-import { productAction } from "../redux/actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchProductDetail } from "../redux/reducers/productSlice";
 
 const ProductDetail = ({ setKeyword }) => {
   let { id } = useParams();
@@ -10,7 +10,7 @@ const ProductDetail = ({ setKeyword }) => {
 
   const dispatch = useDispatch();
   const getProductDetail = () => {
-    dispatch(productAction.getProductDetail(id));
+    dispatch(fetchProductDetail(id));
   };
 
   const [selectSize, setSelectSize] = useState(null);

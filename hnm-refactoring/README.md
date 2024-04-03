@@ -1,8 +1,6 @@
-# H&M (React Rouer, Redux Middleware)
+# H&M Refactoring (reduc toolkit, createAsynycThunk)
 
 ## 링크
-
-https://hnm-react-sa.netlify.app/
 
 ## 요구사항
 
