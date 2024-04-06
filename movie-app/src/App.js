@@ -5,6 +5,7 @@ import AppLayout from "./layout/AppLayout";
 import Homepage from "./pages/Homepage/Homepage";
 import MoviePage from "./pages/Movies/MoviePage";
 import MovieDetailPage from "./pages/MovieDetail/MovieDetailPage";
+import NotFoundpage from "./pages/NotFoundpage/NotFoundpage";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
           <Route path=":id" elelment={MovieDetailPage} />
         </Route>
       </Route>
+
+      <Route path="*" element={<NotFoundpage />} />
     </Routes>
   );
 }
