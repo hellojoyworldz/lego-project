@@ -1,6 +1,7 @@
 import React from "react";
+import "./AppLayout.style.css";
 import Button from "react-bootstrap/Button";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
@@ -8,8 +9,8 @@ import Navbar from "react-bootstrap/Navbar";
 
 const AppLayout = () => {
   return (
-    <div>
-      <Navbar expand="lg">
+    <main>
+      <Navbar expand="lg" className="navbar">
         <Container fluid>
           <Navbar.Brand href="/">
             <img
@@ -24,8 +25,12 @@ const AppLayout = () => {
               className="my-2 me-auto my-lg-0"
               style={{ maxHeight: "100px" }}
               navbarScroll>
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/movies">Movies</Nav.Link>
+              <Nav.Link as={Link} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link as={Link} to="/movies">
+                Movies
+              </Nav.Link>
             </Nav>
             <Form className="d-flex">
               <Form.Control
@@ -42,7 +47,7 @@ const AppLayout = () => {
       </Navbar>
 
       <Outlet />
-    </div>
+    </main>
   );
 };
 
