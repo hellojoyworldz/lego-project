@@ -13,11 +13,7 @@ const AppLayout = () => {
       <Navbar expand="lg" className="navbar">
         <Container fluid>
           <Navbar.Brand href="/">
-            <img
-              src="https://about.netflix.com/images/logo.png"
-              style={{ height: "60px" }}
-              alt=""
-            />
+            <img src="/images/logo.png" style={{ height: "44px" }} alt="" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
