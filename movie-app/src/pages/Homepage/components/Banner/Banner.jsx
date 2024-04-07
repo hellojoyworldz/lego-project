@@ -2,22 +2,13 @@ import React from "react";
 import "./Banner.style.css";
 import { usePopularMOviesQuery } from "../../../../hooks/usePopularMovies";
 import Alert from "react-bootstrap/Alert";
-import { BeatLoader } from "react-spinners";
+import Lodingspinner from "../../../../components/Lodingspinner";
 
 const Banner = () => {
   const { data, isLoading, isError, error } = usePopularMOviesQuery();
 
   if (isLoading) {
-    return (
-      <BeatLoader
-        color={"#fff"}
-        loading={true}
-        cssOverride={{}}
-        size={15}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-    );
+    return <Lodingspinner />;
   }
 
   if (isError) {
