@@ -1,0 +1,47 @@
+.main-banner {
+  position: relative;
+  padding-bottom: 56%;
+  width: 100vw;
+  min-height: 50vh;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.main-banner:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background: linear-gradient(to bottom, var(--bs-body-bg), transparent);
+}
+
+.main-banner:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, var(--bs-body-bg), transparent);
+}
+
+.main-banner-info {
+  position: absolute;
+  top: 8%;
+  bottom: 8%;
+  left: 8%;
+  right: 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.main-banner-info .overview {
+  display: block;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
