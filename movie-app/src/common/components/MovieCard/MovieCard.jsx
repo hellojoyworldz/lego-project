@@ -2,7 +2,7 @@ import React from "react";
 import "./MovieCard.style.css";
 import { Badge } from "react-bootstrap";
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, isRanking, ranking }) => {
   let totalPoint = 10;
   let pointAvarage = movie.vote_average.toFixed(1);
   let starAvarage = Math.round(movie.vote_average / 2);
@@ -25,6 +25,7 @@ const MovieCard = ({ movie }) => {
           alt=""
         />
       </div>
+      {isRanking ? <div className="card_ranking">{ranking}</div> : ""}
       <div className="card_info">
         <h4 className="card_tit">{movie?.title}</h4>
         <div className="card_genre">
