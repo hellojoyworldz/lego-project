@@ -1,0 +1,70 @@
+.card_item {
+  position: relative;
+  text-align: center;
+}
+.card_thumb img {
+  max-width: 100%;
+}
+
+.card_info {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  transition: all 0.3s;
+  opacity: 0;
+}
+
+.card_item:hover .card_info {
+  opacity: 1;
+}
+
+.card_genre .badge {
+  margin: 4px;
+}
+
+.card_point {
+  font-size: 1.5em;
+  color: #fff;
+}
+
+.card_point span {
+  color: #8f8f8f;
+}
+
+.card_filmrating {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  background-image: url(/public/images/icon_rating_all.png);
+  background-size: 24px 24px;
+}
+
+.card_filmrating.iicon_rating_18 {
+  background-image: url(/public/images/icon_rating_18.png);
+}
+
+.card_filmrating span {
+  position: absolute;
+  left: -999999999px;
+  top: -999999999px;
+  width: 1px;
+  height: 1px;
+  font-size: 0px;
+}
+
+@media (max-width: 725px) {
+  .card_info {
+    position: static;
+    background: transparent;
+    opacity: 1;
+  }
+}

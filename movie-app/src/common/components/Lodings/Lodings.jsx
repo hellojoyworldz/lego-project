@@ -1,7 +1,7 @@
 import React from "react";
 import { BeatLoader } from "react-spinners";
 
-const Lodingspinner = () => {
+const Lodings = () => {
   return (
     <BeatLoader
       color={"#fff"}
@@ -20,4 +20,4 @@ const Lodingspinner = () => {
   );
 };
 
-export default Lodingspinner;
+export default Lodings;
