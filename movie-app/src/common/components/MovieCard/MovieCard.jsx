@@ -1,6 +1,7 @@
 import React from "react";
 import "./MovieCard.style.css";
 import { Badge } from "react-bootstrap";
+import { useMovieGenreQuery } from "../../../hooks/useMovieGenre";
 
 const MovieCard = ({ movie, isRanking, ranking }) => {
   let totalPoint = 10;
@@ -12,6 +13,16 @@ const MovieCard = ({ movie, isRanking, ranking }) => {
     for (let i = 0; i < starAvarage; i++) totalStar += "⭐️";
     for (let j = 0; j < 5 - starAvarage; j++) totalStar += "★";
   })();
+
+  const { data: genreData } = useMovieGenreQuery();
+  const showGenre = (genreList) => {
+    if (!genreData) return [];
+    let genreNameList = genreList.map((id) => {
+      const genreObj = genreData.find((genre) => genre.id === id);
+      return genreObj.name;
+    });
+    return genreNameList;
+  };
 
   return (
     <div className="card_item">
@@ -29,8 +40,8 @@ const MovieCard = ({ movie, isRanking, ranking }) => {
       <div className="card_info">
         <h4 className="card_tit">{movie?.title}</h4>
         <div className="card_genre">
-          {movie?.genre_ids.map((id, idx) => (
-            <Badge key={idx}>{id}</Badge>
+          {showGenre(movie?.genre_ids).map((name, idx) => (
+            <Badge key={idx}>{name}</Badge>
           ))}
         </div>
         <div className="card_point">
