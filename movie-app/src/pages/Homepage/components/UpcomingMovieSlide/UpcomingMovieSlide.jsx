@@ -1,5 +1,5 @@
 import React from "react";
-import { useUpcomingMoviesQuery } from "../../../../hooks/useUpcomingMoviesy";
+import { useUpcomingMoviesQuery } from "../../../../hooks/useUpcomingMovies";
 import { Alert } from "react-bootstrap";
 import "react-multi-carousel/lib/styles.css";
 import MovieSlider from "../../../../common/components/MovieSlider/MovieSlider";
