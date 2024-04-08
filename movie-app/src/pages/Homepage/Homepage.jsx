@@ -10,6 +10,7 @@ const Homepage = () => {
       <Banner />
       <PopularMovieSlide />
       <TopRatedMovieSlide />
+      <UpcomingMovieSlide />
     </>
   );
 };
