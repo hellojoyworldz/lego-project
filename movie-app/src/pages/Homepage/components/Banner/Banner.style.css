@@ -2,7 +2,7 @@
   position: relative;
   padding-bottom: 56%;
   width: 100vw;
-  min-height: 50vh;
+  min-height: 60vh;
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
@@ -44,4 +44,10 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+@media (max-width: 725px) {
+  .main-banner {
+    height: 100vh;
+  }
 }
