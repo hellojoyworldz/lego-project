@@ -15,6 +15,12 @@ const MovieFilters = ({ filterGenre, setFilterGenre }) => {
     <Alert variant="danger">{error.message}</Alert>
   ) : (
     <DropdownButton variant="danger" title={filterGenre[0]}>
+      <Dropdown.Item
+        onClick={(event) => selectFilterGenre(event)}
+        eventKey={1}
+        data-id={0}>
+        전체
+      </Dropdown.Item>
       {data.map((val, idx) => (
         <Dropdown.Item
           onClick={(event) => selectFilterGenre(event)}

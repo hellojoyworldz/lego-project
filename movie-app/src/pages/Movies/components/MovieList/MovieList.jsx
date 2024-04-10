@@ -19,7 +19,7 @@ const MovieList = ({ data, page, setPage, filterGenre }) => {
   return (
     <>
       <Row>
-        {filterGenre[1] === 0
+        {Number(filterGenre[1]) === 0
           ? data?.results.map((movie, idx) => (
               <Col key={idx} lg={3} xs={6} className="mt-4 mb-4">
                 <MovieCard movie={movie} />
