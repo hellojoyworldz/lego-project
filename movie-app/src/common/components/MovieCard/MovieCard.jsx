@@ -27,14 +27,18 @@ const MovieCard = ({ movie, isRanking, ranking }) => {
   return (
     <div className="card_item">
       <div className="card_thumb">
-        <img
-          src={
-            "https://media.themoviedb.org/t/p/w600_and_h900_bestv2" +
-            movie?.poster_path
-          }
-          width={"600px"}
-          alt=""
-        />
+        {movie.poster_path ? (
+          <img
+            src={
+              "https://media.themoviedb.org/t/p/w600_and_h900_bestv2" +
+              movie?.poster_path
+            }
+            width={"600px"}
+            alt=""
+          />
+        ) : (
+          <div className="card_noimage">이미지 준비중</div>
+        )}
       </div>
       {isRanking ? <div className="card_ranking">{ranking}</div> : ""}
       <div className="card_info">
