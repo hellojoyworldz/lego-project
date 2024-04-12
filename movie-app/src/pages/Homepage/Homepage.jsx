@@ -1,5 +1,5 @@
 import React from "react";
-import Banner from "./components/Banner/Banner";
+import HomepageBanner from "./components/HomepageBanner/HomepageBanner";
 import PopularMovieSlide from "./components/PopularMovieSlide/PopularMovieSlide";
 import TopRatedMovieSlide from "./components/TopRatedMovieSlide/TopRatedMovieSlide";
 import UpcomingMovieSlide from "./components/UpcomingMovieSlide/UpcomingMovieSlide";
@@ -7,7 +7,7 @@ import UpcomingMovieSlide from "./components/UpcomingMovieSlide/UpcomingMovieSli
 const Homepage = () => {
   return (
     <>
-      <Banner />
+      <HomepageBanner />
       <PopularMovieSlide />
       <TopRatedMovieSlide />
       <UpcomingMovieSlide />
