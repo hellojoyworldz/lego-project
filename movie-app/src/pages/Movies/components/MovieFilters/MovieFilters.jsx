@@ -3,7 +3,7 @@ import { useMovieGenreQuery } from "../../../../hooks/useMovieGenre";
 import Lodingspinner from "../../../../common/components/Lodings/Lodings";
 import { Alert, Dropdown, DropdownButton } from "react-bootstrap";
 
-const MovieFilters = ({ filterGenre, setFilterGenre }) => {
+const MovieFilters = ({ className, filterGenre, setFilterGenre }) => {
   const { data, isLoading, isError, error } = useMovieGenreQuery();
   const selectFilterGenre = (event) => {
     setFilterGenre([event.target.innerText, event.target.dataset.id]);
@@ -14,10 +14,13 @@ const MovieFilters = ({ filterGenre, setFilterGenre }) => {
   ) : isError ? (
     <Alert variant="danger">{error.message}</Alert>
   ) : (
-    <DropdownButton variant="danger" title={filterGenre[0]}>
+    <DropdownButton
+      variant="danger"
+      className={className}
+      title={filterGenre[0]}>
       <Dropdown.Item
         onClick={(event) => selectFilterGenre(event)}
-        eventKey={1}
+        eventKey={0}
         data-id={0}>
         전체
       </Dropdown.Item>
@@ -25,6 +28,7 @@ const MovieFilters = ({ filterGenre, setFilterGenre }) => {
         <Dropdown.Item
           onClick={(event) => selectFilterGenre(event)}
           eventKey={idx + 1}
+          key={idx + 1}
           data-id={val.id}>
           {val.name}
         </Dropdown.Item>

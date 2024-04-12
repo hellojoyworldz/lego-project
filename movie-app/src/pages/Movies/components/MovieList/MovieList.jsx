@@ -3,10 +3,19 @@ import { Row, Col } from "react-bootstrap";
 import MovieCard from "../../../../common/components/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
 
-const MovieList = ({ data, page, setPage, filterGenre }) => {
+const MovieList = ({ data, page, setPage, filterGenre, filterSort }) => {
+  const sortData = [...data?.results];
   const filterData = [];
 
-  data?.results.filter((val) => {
+  sortData.sort((a, b) => {
+    if (filterSort[1] === "1" && a.vote_average < b.vote_average) return 1;
+    if (filterSort[1] === "1" && a.vote_average > b.vote_average) return -1;
+    if (filterSort[1] === "2" && a.vote_average > b.vote_average) return 1;
+    if (filterSort[1] === "2" && a.vote_average < b.vote_average) return -1;
+    return 0;
+  });
+
+  sortData.filter((val) => {
     val.genre_ids.map((id) => {
       if (id === Number(filterGenre[1])) filterData.push(val);
     });
@@ -19,17 +28,23 @@ const MovieList = ({ data, page, setPage, filterGenre }) => {
   return (
     <>
       <Row>
-        {Number(filterGenre[1]) === 0
-          ? data?.results.map((movie, idx) => (
-              <Col key={idx} lg={3} xs={6} className="mt-4 mb-4">
-                <MovieCard movie={movie} />
-              </Col>
-            ))
-          : filterData.map((movie, idx) => (
-              <Col key={idx} lg={3} xs={6} className="mt-4 mb-4">
-                <MovieCard movie={movie} />
-              </Col>
-            ))}
+        {filterGenre[1] === "0" ? (
+          sortData.map((movie, idx) => (
+            <Col key={idx} lg={3} xs={6} className="mt-4 mb-4">
+              <MovieCard movie={movie} />
+            </Col>
+          ))
+        ) : filterData.length === 0 ? (
+          <div className="py-4 mt-4 text-center">
+            해당 조건에 맞는 목록이 없습니다
+          </div>
+        ) : (
+          filterData.map((movie, idx) => (
+            <Col key={idx} lg={3} xs={6} className="mt-4 mb-4">
+              <MovieCard movie={movie} />
+            </Col>
+          ))
+        )}
       </Row>
       <Row>
         <div className="my-4 d-flex justify-content-center">
