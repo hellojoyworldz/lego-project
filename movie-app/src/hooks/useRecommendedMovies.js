@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import api from "../utils/api";
 
 const fetchRecommendedMovies = (id) => {
-  console.log(id);
   return api.get(`/movie/${id}/recommendations?language=ko`);
 };
 
