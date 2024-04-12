@@ -1,0 +1,20 @@
+.review-card {
+  margin: 16px 0;
+  padding: 16px 24px;
+  color: #333;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+}
+
+.review-profile {
+  display: flex;
+  align-items: center;
+}
+
+.review_content {
+  display: block;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+}

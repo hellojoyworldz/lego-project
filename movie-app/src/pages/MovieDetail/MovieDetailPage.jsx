@@ -5,6 +5,7 @@ import Alert from "react-bootstrap/Alert";
 import Lodingspinner from "../../common/components/Lodings/Lodings";
 import Banner from "../../common/components/Banner/Banner";
 import RecommendedMovies from "./components/RecommendedMovies/RecommendedMovies";
+import MovieReviews from "./components/MovieReviews/MovieReviews";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -27,6 +28,8 @@ const MovieDetailPage = () => {
         overview={data?.tagline}
       />
       <RecommendedMovies id={id} />
+
+      <MovieReviews id={id} />
     </div>
   );
 };
