@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./MovieCard.style.css";
 import { Badge } from "react-bootstrap";
 import { useMovieGenreQuery } from "../../../hooks/useMovieGenre";
@@ -26,6 +27,7 @@ const MovieCard = ({ movie, isRanking, ranking }) => {
 
   return (
     <div className="card_item">
+      <Link to={`/movies/${movie.id}`} className="card_link"></Link>
       <div className="card_thumb">
         {movie.poster_path ? (
           <img
