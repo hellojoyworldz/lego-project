@@ -5,3 +5,10 @@
   right: 0px;
   z-index: 999999;
 }
+
+.main-footer {
+  padding: 24px;
+  text-align: center;
+  color: #666;
+  background-color: #000;
+}
