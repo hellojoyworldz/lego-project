@@ -11,10 +11,16 @@
   align-items: center;
 }
 
+/*
 .review_content {
   display: block;
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 8;
+}
+*/
+
+.reviw_content_button {
+  border: 0px;
 }

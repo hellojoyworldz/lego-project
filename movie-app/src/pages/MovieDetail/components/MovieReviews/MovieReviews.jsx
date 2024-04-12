@@ -28,6 +28,7 @@ const MovieReviews = ({ id }) => {
                 content={review.content}
                 created={review.created_at}
                 rating={review.author_details.rating}
+                contentLimit={300}
               />
             </Col>
           ))}
