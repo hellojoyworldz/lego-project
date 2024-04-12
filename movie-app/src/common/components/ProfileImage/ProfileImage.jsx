@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ProfileImage.style.css";
 
 const ProfileImage = ({ className, size = 48 }) => {
@@ -20,14 +20,14 @@ const ProfileImage = ({ className, size = 48 }) => {
     "pixel-art",
     "pixel-art-neutral",
   ];
-
   const bgColor = ["b6e3f4", "c0aede", "d1d4f9", "ffd5dc", "ffdfbf"];
-
   const randomChoice = (arrName) =>
     arrName[Math.floor(Math.random() * arrName.length)];
 
-  const randomStyleName = randomChoice(styleName);
-  const randomBgColor = randomChoice(bgColor);
+  const [randomStyleName, setRandomStyleName] = useState(
+    randomChoice(styleName)
+  );
+  const [randomBgColor, setRandomBgColor] = useState(randomChoice(bgColor));
 
   return (
     <div className={className}>
