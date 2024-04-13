@@ -22,5 +22,9 @@
 */
 
 .reviw_content_button {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  color: #333;
   border: 0px;
+  background: #ddd;
 }

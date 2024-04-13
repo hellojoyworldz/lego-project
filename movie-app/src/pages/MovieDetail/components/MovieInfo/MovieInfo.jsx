@@ -36,9 +36,11 @@ const MovieInfo = ({ data }) => {
             </span>
           </div>
 
-          <p className="mt-4 mb-4 detail_overview">{data?.overview}</p>
+          {data?.overview && (
+            <p className="mt-4 mb-4 detail_overview">{data?.overview}</p>
+          )}
 
-          <div className="detail_list">
+          <div className="mt-4 detail_list">
             <dl>
               <dt>장르</dt>
               <dd>
