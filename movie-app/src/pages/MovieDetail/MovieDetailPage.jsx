@@ -6,6 +6,7 @@ import Lodingspinner from "../../common/components/Lodings/Lodings";
 import DetailBanner from "./components/DetailBanner/DetailBanner";
 import RecommendedMovies from "./components/RecommendedMovies/RecommendedMovies";
 import MovieReviews from "./components/MovieReviews/MovieReviews";
+import MovieInfo from "./components/MovieInfo/MovieInfo";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -26,9 +27,9 @@ const MovieDetailPage = () => {
         id={data?.id}
         imgpath={data?.backdrop_path}
         title={data?.title}
-        overview={data?.tagline}
+        overview={data?.overview}
       />
-
+      <MovieInfo data={data} />
       <RecommendedMovies id={id} />
       <MovieReviews id={id} />
     </div>
