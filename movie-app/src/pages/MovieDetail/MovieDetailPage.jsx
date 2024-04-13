@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import Alert from "react-bootstrap/Alert";
 import Lodingspinner from "../../common/components/Lodings/Lodings";
-import Banner from "../../common/components/Banner/Banner";
+import DetailBanner from "./components/DetailBanner/DetailBanner";
 import RecommendedMovies from "./components/RecommendedMovies/RecommendedMovies";
 import MovieReviews from "./components/MovieReviews/MovieReviews";
 
@@ -22,13 +22,14 @@ const MovieDetailPage = () => {
 
   return (
     <div className="movie-detail">
-      <Banner
+      <DetailBanner
+        id={data?.id}
         imgpath={data?.backdrop_path}
         title={data?.title}
         overview={data?.tagline}
       />
-      <RecommendedMovies id={id} />
 
+      <RecommendedMovies id={id} />
       <MovieReviews id={id} />
     </div>
   );

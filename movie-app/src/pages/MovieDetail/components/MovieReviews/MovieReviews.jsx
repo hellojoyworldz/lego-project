@@ -17,13 +17,13 @@ const MovieReviews = ({ id }) => {
     <section className="px-4 mt-4">
       <h3>Reviews</h3>
       {data?.total_results === 0 ? (
-        <div>등록된 리뷰가 없습니다.</div>
+        <div key={0}>등록된 리뷰가 없습니다.</div>
       ) : (
         <Row>
           {data?.results.map((review, index) => (
             <Col lg={4}>
               <ReviewCard
-                key={index}
+                key={index + 1}
                 author={review.author}
                 content={review.content}
                 created={review.created_at}

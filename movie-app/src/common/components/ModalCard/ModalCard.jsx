@@ -2,6 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import YouTube from "react-youtube";
+import "./ModalCard.style.css";
 
 function MyVerticallyCenteredModal(props) {
   return (
@@ -19,14 +20,20 @@ function MyVerticallyCenteredModal(props) {
       </Modal.Header>
       <Modal.Body>
         {props.contentTitle && <h4>{props.contentTitle}</h4>}
-        {props.youtube && <YouTube />}
+        {props.videodata && (
+          <YouTube
+            className="video-iframe"
+            videoId={props.videodata}
+            opts={{ playerVars: { autoplay: 1 } }}
+          />
+        )}
         {props.contentText && <p>{props.contentText}</p>}
       </Modal.Body>
     </Modal>
   );
 }
 
-const ModalCard = ({ title, youtube }) => {
+const ModalCard = ({ title, videodata }) => {
   const [modalShow, setModalShow] = React.useState(false);
 
   return (
@@ -38,7 +45,7 @@ const ModalCard = ({ title, youtube }) => {
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        youtube={youtube}
+        videodata={videodata}
       />
     </>
   );
