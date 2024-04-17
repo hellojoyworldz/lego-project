@@ -140,5 +140,39 @@
             "size":["S","M","L"]
 
         }
+    ],
+    "project" : [
+        {
+            "name":"캠핑어떄",
+            "repository":"https://github.com/alim-ui-developer/react-study-team-project",
+            "url":"",
+            "period":"2024.04.15 ~ 2024.04.21",
+            "Owner":"한도희",
+            "master":"정아림",
+            "members":["곽선아", "정예진", "한상결"],
+            "Copyrights":"Copyrights(c) 2024 캠핑어때 ALL RIGHTS RESERVED."
+        }
+    ],
+    "members":[
+        {
+            "id":"doheeing",
+            "name": "한도희"
+        },
+        {
+            "id":"alim-ui-developer",
+            "name": "정아림"
+        },
+        {
+            "id":"hellojoyworldz",
+            "name": "곽선아"
+        },
+        {
+            "id":"newuserYejin",
+            "name": "정예진"
+        },
+        {
+            "id":"sanggyeol1",
+            "name": "한상결"
+        }
     ]
 }
