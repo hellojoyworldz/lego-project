@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrom app</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div id="wrap">
+        <h1 id="clock">00:00:00</h1>
+        
+        <form id="login-form">
+            <input class="login-name" type="text" placeholder="Your name" required>
+            <!--<button class="login-button" type="submit">Login</button>-->
+        </form>
+        
+        <div id="weather">
+            <span></span>
+            <span></span>
+        </div>
+        
+        <h2 id="greeting" class="hidden"></h2>
+        <form id="todo-form">
+            <input type="text" placeholder="Write a To Do and Press Enter" required />
+        </form>
+
+        <ul id="todo-list"></ul>
+        
+        <div id="background"></div>
+    </div>
+    <script src="js/greetings.js"></script>
+    <script src="js/clock.js"></script>
+    <script src="js/background.js"></script>
+    <script src="js/todo.js"></script>
+    <script src="js/weather.js"></script>
+</body>
+</html>
