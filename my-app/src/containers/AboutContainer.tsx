@@ -5,7 +5,9 @@ const AboutContainer: FC = () => (
   <div>
     <h2>About Page</h2>
     <p>This is the about page.</p>
-    <Link to="/">Go Home</Link>
+    <Link to="/" state={{ animation: 'back' }}>
+      Go Home
+    </Link>
   </div>
 );
 

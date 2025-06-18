@@ -7,13 +7,14 @@ import './i18n';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
+  const animation = (location.state as { animation?: 'menu' | 'sub' | 'back' } | null)?.animation;
   return (
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
         <Route
           path="/"
           element={
-            <PageTransition>
+            <PageTransition animation={animation ?? 'menu'}>
               <HomeContainer />
             </PageTransition>
           }
@@ -21,7 +22,7 @@ const AnimatedRoutes = () => {
         <Route
           path="/about"
           element={
-            <PageTransition>
+            <PageTransition animation={animation ?? 'sub'}>
               <AboutContainer />
             </PageTransition>
           }

@@ -13,7 +13,9 @@ const HomeContainer: FC = () => {
       <p>count: {count}</p>
       <button onClick={increase}>+</button>
       <div>
-        <Link to="/about">Go to About</Link>
+        <Link to="/about" state={{ animation: 'sub' }}>
+          Go to About
+        </Link>
       </div>
     </div>
   );
