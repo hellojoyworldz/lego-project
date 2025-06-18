@@ -16,7 +16,9 @@
     "i18next": "^23.0.0",
     "zustand": "^4.4.0",
     "@apollo/client": "^3.9.0",
-    "graphql": "^16.0.0"
+    "graphql": "^16.0.0",
+    "react-router-dom": "^6.21.2",
+    "framer-motion": "^11.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
