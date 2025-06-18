@@ -3,7 +3,6 @@ import Hello from '../components/Hello';
 import { useStore } from '../store/useStore';
 import { Link } from 'react-router-dom';
 
-
 const HomeContainer: FC = () => {
   const count = useStore((state) => state.count);
   const increase = useStore((state) => state.increase);
