@@ -28,7 +28,7 @@ taskController.updateTask = async (req, res) => {
     const updatedTask = await Task.findOneAndUpdate(
       { _id: id },
       { task, isComplete },
-      { new: true }
+      { new: true, runValidators: true }
     );
     res.status(200).json({ status: "ok", data: updatedTask });
   } catch (error) {
