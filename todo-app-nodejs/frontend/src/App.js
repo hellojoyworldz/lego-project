@@ -11,6 +11,7 @@ import { ENDPOINTS } from "./const/endpoints";
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [todoValue, setTodoValue] = useState("");
+  const [error, setError] = useState("");
 
   const getTasks = async () => {
     requestApi({
@@ -23,6 +24,12 @@ function App() {
   };
 
   const addTask = () => {
+    if (todoValue.trim() === "") {
+      setError("빈칸은 입력할 수 없습니다.");
+
+      return;
+    }
+
     requestApi({
       requestURI: ENDPOINTS.TASKS,
       requestType: "post",
@@ -73,7 +80,10 @@ function App() {
             placeholder="할일을 입력하세요"
             className="input-box"
             value={todoValue}
-            onChange={(e) => setTodoValue(e.target.value)}
+            onChange={(e) => {
+              setTodoValue(e.target.value);
+              setError("");
+            }}
           />
         </Col>
         <Col xs={12} sm={2}>
@@ -81,6 +91,7 @@ function App() {
             추가
           </button>
         </Col>
+        {error && <p style={{ color: "red", opacity: 0.6 }}>{error}</p>}
       </Row>
 
       <TodoBoard
