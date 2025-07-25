@@ -21,6 +21,9 @@
 - 삭제: /tasks/:id delete
 
 3. 데이터베이스 스키마 정의
+   | task | isComplete|
+   |--|--|
+   |string|boolean|
 4. 기능 정의: CRUD
 5. 테스트: postman
 
