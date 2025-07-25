@@ -7,11 +7,11 @@
 3. 할 일에 대해 끝남,안끝남 표시를 할 수 있다.
 4. 할 일을 삭제할 수 있다.
 
-## 백엔드 준비
+## 백엔드
 
 1. 기본 세팅: npm, express, mongoose, app listener
 
-- npm install express mongoose body-parser cors
+- npm install express mongoose body-parser cors dotenv
 
 2. 라우터 주소 정의: restful API(주소 + http명령어)
 
@@ -27,8 +27,14 @@
 4. 기능 정의: CRUD
 5. 테스트: postman
 
-## 프론트엔드 준비
+## 프론트엔드
 
 1. UI: git clone
 2. 기능 만들기: CRUD
 3. 테스트
+
+## 배포
+
+1. 데이터베이스: Mongodb Altas
+2. 백엔드: aws
+3. 프론트엔드: netlify
