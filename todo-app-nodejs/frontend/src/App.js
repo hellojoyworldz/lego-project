@@ -5,62 +5,59 @@ import TodoBoard from "./components/TodoBoard";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import api from "./utils/api";
+import { requestApi } from "./utils";
+import { ENDPOINTS } from "./const/endpoints";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [todoValue, setTodoValue] = useState("");
 
   const getTasks = async () => {
-    const response = await api.get("/tasks");
-    setTodoList(response.data);
+    requestApi({
+      requestURI: ENDPOINTS.TASKS,
+      requestType: "get",
+      onSuccess: (response) => {
+        setTodoList(response.data);
+      },
+    });
   };
 
-  const addTask = async () => {
-    try {
-      const response = await api.post("/tasks", {
+  const addTask = () => {
+    requestApi({
+      requestURI: ENDPOINTS.TASKS,
+      requestType: "post",
+      requestBody: {
         task: todoValue,
         isComplete: false,
-      });
-
-      if (response.status === 200) {
+      },
+      onSuccess: () => {
         setTodoValue("");
         getTasks();
-      } else {
-        throw new Error("task can not be added");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+      },
+    });
   };
 
-  const taskUpdate = async ({ id, isComplete }) => {
-    try {
-      const response = await api.put(`/tasks/${id}`, {
+  const taskUpdate = ({ id, isComplete }) => {
+    requestApi({
+      requestURI: `${ENDPOINTS.TASKS}/${id}`,
+      requestType: "put",
+      requestBody: {
         isComplete: !isComplete,
-      });
-      if (response.status === 200) {
+      },
+      onSuccess: () => {
         getTasks();
-      } else {
-        throw new Error("task can not be updated");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+      },
+    });
   };
 
-  const taskDelete = async (id) => {
-    try {
-      const response = await api.delete(`/tasks/${id}`);
-      console.log("response", response);
-      if (response.status === 200) {
+  const taskDelete = (id) => {
+    requestApi({
+      requestURI: `${ENDPOINTS.TASKS}/${id}`,
+      requestType: "delete",
+      onSuccess: () => {
         getTasks();
-      } else {
-        throw new Error("task can not be deleted");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+      },
+    });
   };
 
   useEffect(() => {
