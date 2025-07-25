@@ -11,7 +11,7 @@
 
 1. 기본 세팅: npm, express, mongoose, app listener
 
-- npm install express mongoose body-parser
+- npm install express mongoose body-parser cors
 
 2. 라우터 주소 정의: restful API(주소 + http명령어)
 
