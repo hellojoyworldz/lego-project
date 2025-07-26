@@ -2,16 +2,20 @@
 
 ## 기능
 
-1. 할 일을 추가할 수 있다.
-2. 할 일 리스트를 볼 수 있다.
-3. 할 일에 대해 끝남,안끝남 표시를 할 수 있다.
-4. 할 일을 삭제할 수 있다.
+1. 할 일을 추가할 수 있다.<br/>
+   <img src="./assets/create.gif">
+2. 할 일 리스트를 볼 수 있다.<br/>
+   <img src="./assets/read.png">
+3. 할 일에 대해 끝남,안끝남 표시를 할 수 있다.<br/>
+   <img src="./assets/update.gif">
+4. 할 일을 삭제할 수 있다.<br/>
+   <img src="./assets/delete.gif">
 
-## 백엔드 준비
+## 백엔드
 
 1. 기본 세팅: npm, express, mongoose, app listener
 
-- npm install express mongoose body-parser
+- npm install express mongoose body-parser cors dotenv
 
 2. 라우터 주소 정의: restful API(주소 + http명령어)
 
@@ -27,8 +31,14 @@
 4. 기능 정의: CRUD
 5. 테스트: postman
 
-## 프론트엔드 준비
+## 프론트엔드
 
 1. UI: git clone
 2. 기능 만들기: CRUD
 3. 테스트
+
+## 배포
+
+1. 데이터베이스: Mongodb Altas
+2. 백엔드: AWS Elastic Beanstalk
+3. 프론트엔드: Netlify
