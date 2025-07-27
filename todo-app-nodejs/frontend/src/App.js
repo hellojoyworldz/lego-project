@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import TodoPage from "./pages/TodoPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import { PAGES } from "./utils/routes";
+import { PAGES } from "./const/routes";
 
 function App() {
   return (
