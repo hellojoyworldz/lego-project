@@ -10,12 +10,27 @@
    <img src="./assets/update.gif">
 4. 할 일을 삭제할 수 있다.<br/>
    <img src="./assets/delete.gif">
+5. 회원가입
+
+- 정보: 이메일, 패스워드, 이름
+- 이미 가입된 유저 확인
+- 패스워드 암호화 시켜 저장
+
+6. 로그인
+
+- 이메일과 패스워드를 입력해서 보냄
+- 해당 이메일과 패스워드를 가진 유저가 있는지 확인
+  - 없으면 로그인 실패
+  - 있다면 유저정보 + 토큰
+
+7. 유저 권한 확인 (todo page 로그인한 유저만 들어갈 수 있다.)
+8. 로그인한 유저라면 todo page로 이동
 
 ## 백엔드
 
 1. 기본 세팅: npm, express, mongoose, app listener
 
-- npm install express mongoose body-parser cors dotenv
+- npm install express mongoose body-parser cors dotenv bcryptjs jsonwebtoken
 
 2. 라우터 주소 정의: restful API(주소 + http명령어)
 
@@ -25,9 +40,17 @@
 - 삭제: /tasks/:id delete
 
 3. 데이터베이스 스키마 정의
-   | task | isComplete|
-   |--|--|
-   |string|boolean|
+
+- Task
+  | task | isComplete|
+  |--|--|
+  |string|boolean|
+
+- User
+  |name|email|password|
+  |--|--|--|
+  |string|string|string|
+
 4. 기능 정의: CRUD
 5. 테스트: postman
 
