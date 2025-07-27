@@ -27,7 +27,7 @@ userController.createUser = async (req, res) => {
   }
 };
 
-userController.loginWidthEmail = async (req, res) => {
+userController.loginWithEmail = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }, "-__v -updatedAt -createdAt");
