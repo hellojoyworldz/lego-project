@@ -38,12 +38,14 @@ userController.loginWidthEmail = async (req, res) => {
       if (isPasswordCorrect) {
         const token = await user.generateToken();
         res.status(200).json({ status: "success", data: user, token });
+      } else {
+        throw new Error("이메일 또는 비밀번호가 일치하지 않습니다.");
       }
     } else {
-      throw new Error("Invalid email or password");
+      throw new Error("존재하지 않는 유저입니다. 회원가입을 해주세요.");
     }
   } catch (error) {
-    res.status(400).json({ status: "fail", error });
+    res.status(400).json({ status: "fail", message: error.message });
   }
 };
 
