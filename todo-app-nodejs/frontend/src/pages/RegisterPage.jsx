@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import api from "../utils/api";
 import { ENDPOINTS } from "../const/endpoints";
 import { useNavigate } from "react-router-dom";
-import { PAGES } from "../utils/routes";
+import { PAGES } from "../const/routes";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
