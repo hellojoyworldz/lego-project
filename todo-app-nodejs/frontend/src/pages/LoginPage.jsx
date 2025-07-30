@@ -9,7 +9,6 @@ import { PAGES } from "../const/routes";
 const LoginPage = ({ user, setUser }) => {
   const navigate = useNavigate();
 
-  console.log(user);
   const [forms, setForms] = useState({
     email: "",
     password: "",
@@ -29,8 +28,7 @@ const LoginPage = ({ user, setUser }) => {
         sessionStorage.setItem("token", response.data.token);
         api.defaults.headers["Authorization"] = `Bearer ${response.data.token}`;
         setError("");
-        setUser(response.data.user);
-        navigate(PAGES.TODO);
+        setUser(response.data.data);
       } else {
         throw new Error(response.data.message);
       }

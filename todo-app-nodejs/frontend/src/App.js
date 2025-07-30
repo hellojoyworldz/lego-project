@@ -13,19 +13,22 @@ import api from "./utils/api";
 
 function App() {
   const [user, setUser] = useState(null);
+
   const getUser = async () => {
     try {
       const storedToken = sessionStorage.getItem("token");
       if (storedToken) {
-        const response = await api(ENDPOINTS.ME);
+        const response = await api.get(ENDPOINTS.ME);
         setUser(response.data.user);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     getUser();
-  }, [user]);
+  }, []);
 
   return (
     <Routes>
@@ -33,7 +36,7 @@ function App() {
         path={PAGES.TODO}
         element={
           <PrivateRoute user={user}>
-            <TodoPage />
+            <TodoPage setUser={setUser} />
           </PrivateRoute>
         }
       />

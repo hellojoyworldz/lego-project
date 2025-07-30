@@ -7,6 +7,9 @@ const TodoItem = ({ item, taskUpdate, taskDelete }) => {
       <Col xs={12}>
         <div className={`todo-item`}>
           <div className="todo-content">{item.task}</div>
+          <div className="todo-author">
+            {item?.author && `by ${item?.author?.name}`}
+          </div>
 
           <div>
             <button
