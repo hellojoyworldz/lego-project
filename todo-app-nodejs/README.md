@@ -70,14 +70,14 @@
 3. 데이터베이스 스키마 정의
 
 - Task
-  | task | isComplete|
-  |--|--|
-  |string|boolean|
+  |\_id| task | isComplete|author|
+  |--|--|--|--|
+  ||string|boolean|ref:User{\_id}|
 
 - User
-  |name|email|password|
-  |--|--|--|
-  |string|string|string|
+  |\_id|name|email|password|
+  |--|--|--|--|
+  ||string|string|string|
 
 4. 기능 정의: CRUD
 5. 테스트: postman
