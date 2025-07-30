@@ -5,8 +5,12 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import { requestApi } from "../utils";
 import { ENDPOINTS } from "../const/endpoints";
+import { useNavigate } from "react-router-dom";
+import { PAGES } from "../const/routes";
 
-function TodoPage() {
+function TodoPage({ setUser }) {
+  const navigate = useNavigate();
+
   const [todoList, setTodoList] = useState([]);
   const [todoValue, setTodoValue] = useState("");
   const [error, setError] = useState("");
@@ -65,6 +69,16 @@ function TodoPage() {
     });
   };
 
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+
+    if (!sessionStorage.getItem("token")) {
+      console.log("로그아웃");
+      setUser(null);
+      navigate(PAGES.LOGIN);
+    }
+  };
+
   useEffect(() => {
     getTasks();
   }, []);
@@ -91,12 +105,14 @@ function TodoPage() {
         </Col>
         {error && <p style={{ color: "red", opacity: 0.6 }}>{error}</p>}
       </Row>
-
       <TodoBoard
         todoList={todoList}
         taskUpdate={taskUpdate}
         taskDelete={taskDelete}
       />
+      <button className="button-add" onClick={handleLogout}>
+        로그아웃
+      </button>
     </Container>
   );
 }

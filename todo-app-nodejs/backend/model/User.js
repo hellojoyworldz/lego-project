@@ -36,7 +36,8 @@ userSchema.methods.generateToken = function () {
 userSchema.methods.toJSON = function () {
   const object = this._doc;
   delete object.password;
-
+  delete object.updatedAt;
+  delete object.__v;
   return object;
 };
 

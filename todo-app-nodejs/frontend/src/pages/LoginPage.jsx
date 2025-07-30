@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import { ENDPOINTS } from "../const/endpoints";
 import { PAGES } from "../const/routes";
 
-const LoginPage = () => {
+const LoginPage = ({ user, setUser }) => {
   const navigate = useNavigate();
 
   const [forms, setForms] = useState({
@@ -14,7 +14,6 @@ const LoginPage = () => {
     password: "",
   });
   const [error, setError] = useState("");
-  const [user, setUser] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,8 +28,7 @@ const LoginPage = () => {
         sessionStorage.setItem("token", response.data.token);
         api.defaults.headers["Authorization"] = `Bearer ${response.data.token}`;
         setError("");
-        setUser(response.data.user);
-        navigate(PAGES.TODO);
+        setUser(response.data.data);
       } else {
         throw new Error(response.data.message);
       }
@@ -38,6 +36,10 @@ const LoginPage = () => {
       setError(error.message);
     }
   };
+
+  if (user) {
+    return <Navigate to={PAGES.TODO} />;
+  }
 
   return (
     <div className="display-center">
