@@ -56,7 +56,7 @@ userController.getUser = async (req, res) => {
     if (!user) {
       throw new Error("존재하지 않는 유저입니다.");
     }
-    res.status(200).json({ status: "success", data: user });
+    res.status(200).json({ status: "success", user: user });
   } catch (error) {
     res.status(400).json({ status: "fail", message: error.message });
   }
