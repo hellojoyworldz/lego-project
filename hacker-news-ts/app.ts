@@ -39,12 +39,35 @@ const store: Store = {
   feeds: [],
 };
 
-// 데이터 불러오기
-function getData<AjaxResponse>(url: string): AjaxResponse {
-  ajax.open("GET", url, false);
-  ajax.send();
-  return JSON.parse(ajax.response);
+// class는 목적을 위한 구조를 갖게됨
+class Api {
+  url: string;
+  ajax: XMLHttpRequest;
+
+  constructor(url:string) {
+    this.url = url;
+    this.ajax = new XMLHttpRequest();
+  }
+
+  protected getRequest<AjaxResponse>(): AjaxResponse{
+    this.ajax.open("GET", this.url, false);
+    this.ajax.send();
+    return JSON.parse(this.ajax.response);
+  }
 }
+
+class NewsFeedApi extends Api {
+  getData():NewsFeed[]{
+    return this.getRequest<NewsFeed[]>();
+  }
+}
+
+class NewsDetailApi extends Api {
+  getData():NewsDetail[]{
+    return this.getRequest<NewsDetail[]>();
+  }
+}
+
 
 // 데이터에 read 속성 추가
 function makeFeeds(feeds: NewsFeed[]): NewsFeed[] {
@@ -65,6 +88,7 @@ function updateView(html: string): void {
 
 // 글 목록
 function newsFeed(): void {
+  const api = new NewsFeedApi(NEWS_URL);
   let newsFeed: NewsFeed[] = store.feeds;
   const newsList = [];
   let lastPage = Math.ceil(newsFeed.length / 10);
@@ -96,7 +120,7 @@ function newsFeed(): void {
 
   // 처음 로드됐을 때 store.feeds에 데이터 추가
   if (newsFeed.length === 0) {
-    newsFeed = store.feeds = makeFeeds(getData<NewsFeed[]>(NEWS_URL));
+    newsFeed = store.feeds = makeFeeds(api.getData());
   }
 
   for (let i = (store.currentPage - 1) * 10; i < store.currentPage * 10; i++) {
@@ -136,7 +160,8 @@ function newsFeed(): void {
 // 글 내용
 function newsDetail(): void {
   const id = location.hash.substr(7);
-  const newsContent = getData<NewsDetail>(CONTENT_URL.replace("@id", id));
+  const api = new NewsDetailApi(CONTENT_URL.replace("@id", id))
+  const newsContent = api.getData();
 
   let template = `
     <div class="bg-gray-600 min-h-screen pb-8">
