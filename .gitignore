@@ -4,6 +4,10 @@
 favicon.ico
 
 .DS_Store
+.env
 .cache
 
 node_modules
+build
+*.zip
+
