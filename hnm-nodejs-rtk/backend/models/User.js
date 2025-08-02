@@ -1,11 +1,14 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
+// level type: customer, admin
+const UserLevelTypeEnum = {
+  CUSTOMER: "customer",
+  ADMIN: "admin",
+};
+
 const userSchema = Schema(
   {
-    shipTo: {
-      type: String,
-      required: true,
-    },
     password: {
       type: String,
       required: true,
@@ -16,7 +19,8 @@ const userSchema = Schema(
     },
     level: {
       type: String,
-      default: "customer", // type: customer, admin
+      enum: Object.values(UserLevelTypeEnum),
+      default: "customer",
     },
     email: {
       type: String,
@@ -38,4 +42,5 @@ userSchema.methods.toJSON = function () {
 };
 
 const User = mongoose.model("User", userSchema);
-module.exports = User;
+
+module.exports = { User, UserLevelTypeEnum };
