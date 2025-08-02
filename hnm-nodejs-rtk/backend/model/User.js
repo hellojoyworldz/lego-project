@@ -18,6 +18,10 @@ const userSchema = Schema(
       type: String,
       default: "customer", // type: customer, admin
     },
+    email: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
