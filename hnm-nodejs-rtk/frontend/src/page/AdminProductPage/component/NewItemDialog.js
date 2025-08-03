@@ -59,13 +59,26 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const handleClose = () => {
     //모든걸 초기화시키고;
     // 다이얼로그 닫아주기
+    setShowDialog(false);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     //재고를 입력했는지 확인, 아니면 에러
+    if (stock.length === 0) {
+      setStockError(true);
+      return;
+    }
+
     // 재고를 배열에서 객체로 바꿔주기
     // [['M',2]] 에서 {M:2}로
+    const totalStock = stock.reduce((total, item) => {
+      const key = item[0];
+      const value = parseInt(item[1]);
+      return { ...total, [key]: value };
+    }, {});
+
     if (mode === "new") {
       //새 상품 만들기
     } else {
@@ -75,22 +88,37 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const handleChange = (event) => {
     //form에 데이터 넣어주기
+    const { id, value } = event.target;
+    setFormData({ ...formData, [id]: value });
   };
 
   const addStock = () => {
     //재고타입 추가시 배열에 새 배열 추가
+
+    setStock([...stock, ["", 0]]);
   };
 
   const deleteStock = (idx) => {
     //재고 삭제하기
+    const newStock = stock.filter((item, index) => index !== idx);
+
+    setStock(newStock);
   };
 
-  const handleSizeChange = (value, index) => {
+  const handleSizeChange = (value, idx) => {
     //  재고 사이즈 변환하기
+    const newStock = [...stock];
+    newStock[idx][0] = value;
+
+    setStock(newStock);
   };
 
-  const handleStockChange = (value, index) => {
+  const handleStockChange = (value, idx) => {
     //재고 수량 변환하기
+    const newStock = [...stock];
+    newStock[idx][1] = value;
+
+    setStock(newStock);
   };
 
   const onHandleCategory = (event) => {
@@ -112,6 +140,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const uploadImage = (url) => {
     //이미지 업로드
+    setFormData({ ...formData, image: url });
   };
 
   return (
@@ -236,7 +265,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
             src={formData.image}
             className="upload-image mt-2"
             alt="uploadedimage"
-          ></img>
+          />
         </Form.Group>
 
         <Row className="mb-3">
