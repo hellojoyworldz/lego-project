@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
 const Schema = mongoose.Schema;
 
 // level type: customer, admin
@@ -29,7 +32,7 @@ const userSchema = Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 userSchema.methods.toJSON = function () {
@@ -39,6 +42,13 @@ userSchema.methods.toJSON = function () {
   delete obj.updateAt;
   delete obj.createAt;
   return obj;
+};
+
+userSchema.methods.generateToken = async function () {
+  const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+  return token;
 };
 
 const User = mongoose.model("User", userSchema);
