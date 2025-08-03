@@ -59,6 +59,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const handleClose = () => {
     //모든걸 초기화시키고;
     // 다이얼로그 닫아주기
+    setShowDialog(false);
   };
 
   const handleSubmit = (event) => {
@@ -75,22 +76,37 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const handleChange = (event) => {
     //form에 데이터 넣어주기
+    const { id, value } = event.target;
+    setFormData({ ...formData, [id]: value });
   };
 
   const addStock = () => {
     //재고타입 추가시 배열에 새 배열 추가
+
+    setStock([...stock, ["", 0]]);
   };
 
   const deleteStock = (idx) => {
     //재고 삭제하기
+    const newStock = stock.filter((item, index) => index !== idx);
+
+    setStock(newStock);
   };
 
-  const handleSizeChange = (value, index) => {
+  const handleSizeChange = (value, idx) => {
     //  재고 사이즈 변환하기
+    const newStock = [...stock];
+    newStock[idx][0] = value;
+
+    setStock(newStock);
   };
 
-  const handleStockChange = (value, index) => {
+  const handleStockChange = (value, idx) => {
     //재고 수량 변환하기
+    const newStock = [...stock];
+    newStock[idx][1] = value;
+
+    setStock(newStock);
   };
 
   const onHandleCategory = (event) => {
