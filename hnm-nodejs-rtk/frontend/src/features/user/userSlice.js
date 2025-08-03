@@ -28,7 +28,10 @@ export const loginWithGoogle = createAsyncThunk(
   async (token, { rejectWithValue }) => {}
 );
 
-export const logout = () => (dispatch) => {};
+export const logout = () => (dispatch) => {
+  sessionStorage.removeItem("token");
+  dispatch(clearUser());
+};
 
 export const registerUser = createAsyncThunk(
   "user/registerUser",
@@ -62,7 +65,15 @@ export const registerUser = createAsyncThunk(
 
 export const loginWithToken = createAsyncThunk(
   "user/loginWithToken",
-  async (_, { rejectWithValue }) => {}
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/user/me");
+
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.error);
+    }
+  }
 );
 
 const userSlice = createSlice({
@@ -79,8 +90,12 @@ const userSlice = createSlice({
       state.loginError = null;
       state.registrationError = null;
     },
+    clearUser: (state) => {
+      state.user = null;
+    },
   },
   extraReducers: (builder) => {
+    // registerUser
     builder
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
@@ -94,6 +109,7 @@ const userSlice = createSlice({
         state.registrationError = action.payload;
       });
 
+    // loginWithEmail
     builder
       .addCase(loginWithEmail.pending, (state) => {
         state.loading = true;
@@ -107,7 +123,12 @@ const userSlice = createSlice({
         state.loading = false;
         state.loginError = action.payload;
       });
+
+    // loginWithToken
+    builder.addCase(loginWithToken.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
   },
 });
-export const { clearErrors } = userSlice.actions;
+export const { clearErrors, clearUser } = userSlice.actions;
 export default userSlice.reducer;

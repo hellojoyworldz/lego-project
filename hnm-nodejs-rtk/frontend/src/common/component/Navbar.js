@@ -39,6 +39,7 @@ const Navbar = ({ user }) => {
   };
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/");
   };
   return (
     <div>
@@ -89,7 +90,9 @@ const Navbar = ({ user }) => {
               <div onClick={handleLogout} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
                 {!isMobile && (
-                  <span style={{ cursor: "pointer" }}>로그아웃</span>
+                  <span style={{ cursor: "pointer" }} onClick={handleLogout}>
+                    로그아웃
+                  </span>
                 )}
               </div>
             ) : (
@@ -121,7 +124,6 @@ const Navbar = ({ user }) => {
           </div>
         </div>
       </div>
-
       <div className="nav-logo">
         <Link to="/">
           <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" />
