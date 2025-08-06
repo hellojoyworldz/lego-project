@@ -8,6 +8,7 @@ import {
   clearError,
   createProduct,
   editProduct,
+  getProductList,
 } from "../../../features/product/productSlice";
 
 const InitialFormData = {
@@ -33,8 +34,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [stockError, setStockError] = useState(false);
 
   useEffect(() => {
-    if (success) setShowDialog(false);
-  }, [success]);
+    if (success) {
+      setShowDialog(false);
+      dispatch(getProductList()); // 상품 등록 성공 후 상품 리스트 다시 가져오기
+    }
+  }, [success, dispatch, setShowDialog]);
 
   useEffect(() => {
     if (error || !success) {
