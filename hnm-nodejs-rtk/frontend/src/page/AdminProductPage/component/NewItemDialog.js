@@ -71,9 +71,15 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setStockError(false);
 
     //재고를 입력했는지 확인, 아니면 에러
     if (stock.length === 0) {
+      setStockError(true);
+      return;
+    }
+
+    if (stock.some((item) => item[0] === "")) {
       setStockError(true);
       return;
     }
