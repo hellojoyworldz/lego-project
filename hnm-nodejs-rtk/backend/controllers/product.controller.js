@@ -6,8 +6,8 @@ productController.createProduct = async (req, res) => {
   try {
     const {
       sku,
-      name,
       size,
+      name,
       image,
       category,
       description,
@@ -16,10 +16,11 @@ productController.createProduct = async (req, res) => {
       status,
     } = req.body;
 
+    console.log(req.body);
+
     if (
       !sku ||
       !name ||
-      !size ||
       !image ||
       !category ||
       !description ||
