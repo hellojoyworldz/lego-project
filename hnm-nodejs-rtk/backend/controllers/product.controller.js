@@ -15,6 +15,31 @@ productController.createProduct = async (req, res) => {
       stock,
       status,
     } = req.body;
+
+    if (
+      !sku ||
+      !name ||
+      !size ||
+      !image ||
+      !category ||
+      !description ||
+      !price ||
+      !stock ||
+      !status
+    ) {
+      return res
+        .status(400)
+        .json({ status: "failed", error: "Please enter all values" });
+    }
+
+    await Product.findOne({ sku: sku }).then((product) => {
+      if (product) {
+        return res
+          .status(400)
+          .json({ status: "failed", error: "SKU already exists" });
+      }
+    });
+
     const product = new Product({
       sku,
       name,
