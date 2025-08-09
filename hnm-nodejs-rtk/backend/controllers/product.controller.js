@@ -88,6 +88,23 @@ productController.getProducts = async (req, res) => {
   }
 };
 
+productController.getProductById = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res
+        .status(400)
+        .json({ status: "failed", error: "item does not exist" });
+    }
+
+    res.status(200).json({ status: "success", data: product });
+  } catch (error) {
+    res.status(400).json({ status: "failed", error: error.message });
+  }
+};
+
 productController.updateProduct = async (req, res) => {
   try {
     const productId = req.params.id;
