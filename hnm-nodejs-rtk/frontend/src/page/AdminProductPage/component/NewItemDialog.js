@@ -79,7 +79,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       return;
     }
 
-    if (stock.some((item) => item[0] === "")) {
+    if (stock.some((item) => item[0] === "" || item[1] === "")) {
       setStockError(true);
       return;
     }
@@ -107,7 +107,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     //form에 데이터 넣어주기
     const { id, value } = event.target;
 
-    if (id === "price" && value < 0) {
+    if (id === "price" && !/^[0-9]+$/.test(value)) {
       setFormData({ ...formData, [id]: 0 });
       return;
     }
@@ -139,8 +139,14 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const handleStockChange = (value, idx) => {
     //재고 수량 변환하기
     const newStock = [...stock];
-    newStock[idx][1] = value;
 
+    if (!/^[0-9]+$/.test(value)) {
+      newStock[idx][1] = 0;
+      setStock(newStock);
+      return;
+    }
+
+    newStock[idx][1] = value;
     setStock(newStock);
   };
 
