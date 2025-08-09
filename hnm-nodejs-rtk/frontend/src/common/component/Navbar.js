@@ -34,7 +34,12 @@ const Navbar = ({ user }) => {
       if (event.target.value === "") {
         return navigate("/");
       }
-      navigate(`?name=${event.target.value}`);
+      const params = new URLSearchParams({
+        name: event.target.value,
+        page: 1,
+      });
+      const query = params.toString();
+      navigate(`?${query}`);
     }
   };
   const handleLogout = () => {

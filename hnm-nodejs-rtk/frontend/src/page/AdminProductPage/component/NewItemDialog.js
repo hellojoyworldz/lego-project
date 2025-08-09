@@ -58,7 +58,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         setStock([]);
       }
     }
-  }, [showDialog, dispatch, error, mode, selectedProduct, success]);
+  }, [showDialog]);
 
   const handleClose = () => {
     //모든걸 초기화시키고;
@@ -106,6 +106,12 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const handleChange = (event) => {
     //form에 데이터 넣어주기
     const { id, value } = event.target;
+
+    if (id === "price" && value < 0) {
+      setFormData({ ...formData, [id]: 0 });
+      return;
+    }
+
     setFormData({ ...formData, [id]: value });
   };
 
@@ -294,6 +300,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
               onChange={handleChange}
               type="number"
               placeholder="0"
+              min={0}
             />
           </Form.Group>
 
