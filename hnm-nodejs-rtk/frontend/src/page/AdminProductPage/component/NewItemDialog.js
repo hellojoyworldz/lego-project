@@ -58,7 +58,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         setStock([]);
       }
     }
-  }, [showDialog]);
+  }, [showDialog, dispatch, error, mode, selectedProduct, success]);
 
   const handleClose = () => {
     //모든걸 초기화시키고;
@@ -334,7 +334,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
             Submit
           </Button>
         ) : (
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" onClick={handleSubmit}>
             Edit
           </Button>
         )}
