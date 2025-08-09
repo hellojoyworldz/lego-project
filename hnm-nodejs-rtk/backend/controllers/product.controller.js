@@ -88,4 +88,27 @@ productController.getProducts = async (req, res) => {
   }
 };
 
+productController.updateProduct = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const reqBody = req.body;
+
+    const product = await Product.findByIdAndUpdate(
+      { _id: productId },
+      { ...reqBody },
+      { new: true }
+    );
+
+    if (!product) {
+      return res
+        .status(400)
+        .json({ status: "failed", error: "item does not exist" });
+    }
+
+    res.status(200).json({ status: "success", data: product });
+  } catch (error) {
+    res.status(400).json({ status: "failed", error: error.message });
+  }
+};
+
 module.exports = productController;
