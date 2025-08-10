@@ -120,6 +120,7 @@ const productSlice = createSlice({
   initialState: {
     productList: [],
     selectedProduct: null,
+    totalStock: 0,
     loading: true,
     error: "",
     totalPageNum: 1,
@@ -176,6 +177,13 @@ const productSlice = createSlice({
       .addCase(getProductDetail.fulfilled, (state, action) => {
         state.loading = false;
         state.selectedProduct = action.payload;
+        state.totalStock = Object.keys(action.payload.stock).reduce(
+          (acc, item) => {
+            acc += action.payload.stock[item];
+            return acc;
+          },
+          0
+        );
         state.error = "";
         state.success = false;
       })

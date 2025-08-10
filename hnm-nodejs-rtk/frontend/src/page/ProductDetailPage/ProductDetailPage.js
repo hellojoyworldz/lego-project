@@ -12,7 +12,9 @@ import { showToastMessage } from "../../features/common/uiSlice";
 const ProductDetail = () => {
   const dispatch = useDispatch();
 
-  const { selectedProduct, loading } = useSelector((state) => state.product);
+  const { selectedProduct, loading, totalStock } = useSelector(
+    (state) => state.product
+  );
   const [size, setSize] = useState("");
   const { id } = useParams();
   const [sizeError, setSizeError] = useState(false);
@@ -111,8 +113,13 @@ const ProductDetail = () => {
           <div className="warning-message">
             {sizeError && "사이즈를 선택해주세요."}
           </div>
-          <Button variant="dark" className="add-button" onClick={addItemToCart}>
-            추가
+          <Button
+            variant="dark"
+            className="add-button"
+            onClick={addItemToCart}
+            disabled={totalStock === 0}
+          >
+            {totalStock === 0 ? "품절" : "추가"}
           </Button>
         </Col>
       </Row>

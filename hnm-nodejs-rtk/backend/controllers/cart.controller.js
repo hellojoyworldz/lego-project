@@ -12,6 +12,16 @@ cartController.getCartList = async (req, res) => {
   }
 };
 
+cartController.getCartQty = async (req, res) => {
+  try {
+    const { userId } = req;
+    const cart = await Cart.findOne({ userId });
+    res.status(200).json({ status: "success", data: cart.items.length });
+  } catch (error) {
+    res.status(400).json({ status: "failed", error: error.message });
+  }
+};
+
 cartController.addItemToCart = async (req, res) => {
   try {
     const { userId } = req;
