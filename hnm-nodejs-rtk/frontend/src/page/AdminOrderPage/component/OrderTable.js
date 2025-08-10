@@ -2,8 +2,12 @@ import React from "react";
 import { Table, Badge } from "react-bootstrap";
 import { badgeBg } from "../../../constants/order.constants";
 import { currencyFormat } from "../../../utils/number";
+import { useSearchParams } from "react-router-dom";
 
 const OrderTable = ({ header, data, openEditForm }) => {
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page");
+
   return (
     <div className="overflow-x">
       <Table striped bordered hover>
@@ -18,7 +22,7 @@ const OrderTable = ({ header, data, openEditForm }) => {
           {data.length > 0 ? (
             data.map((item, index) => (
               <tr onClick={() => openEditForm(item)}>
-                <th>{index}</th>
+                <th>{page - 1 > 0 ? index + 1 + (page - 1) * 5 : index + 1}</th>
                 <th>{item.orderNum}</th>
                 <th>{item.createdAt.slice(0, 10)}</th>
                 <th>{item.userId.email}</th>
