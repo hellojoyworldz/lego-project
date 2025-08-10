@@ -10,7 +10,7 @@ import LoadingSpinner from "../../common/component/LoadingSpinner";
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const { cartList, totalPrice, loading } = useSelector((state) => state.cart);
+  const { cartList, loading, totalPrice } = useSelector((state) => state.cart);
 
   useEffect(() => {
     //카트리스트 불러오기

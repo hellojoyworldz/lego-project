@@ -11,6 +11,7 @@ import { createOrder } from "../../features/order/orderSlice";
 const PaymentPage = () => {
   const dispatch = useDispatch();
   const { orderNum } = useSelector((state) => state.order);
+  const { cartList, totalPrice } = useSelector((state) => state.cart);
   const [cardValue, setCardValue] = useState({
     cvc: "",
     expiry: "",
@@ -35,23 +36,78 @@ const PaymentPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const { firstName, lastName, contact, address, city, zip } = shipInfo;
+
     // 오더 생성하기
+    dispatch(
+      createOrder({
+        totalPrice,
+        shipTo: {
+          address,
+          city,
+          zip,
+        },
+        contact: {
+          firstName,
+          lastName,
+          contact,
+        },
+        orderList: cartList.map((item) => {
+          return {
+            productId: item.productId._id,
+            price: item.productId.price,
+            qty: item.qty,
+            size: item.size,
+          };
+        }),
+      })
+    ).then((result) => {
+      if (result.meta.requestStatus === "fulfilled") {
+        navigate("/account/purchase");
+      }
+    });
   };
 
   const handleFormChange = (event) => {
     //shipInfo에 값 넣어주기
+    const { name, value } = event.target;
+
+    if (name === "contact" && value.length > 13) {
+      return;
+    }
+    setShipInfo({ ...shipInfo, [name]: value });
   };
 
   const handlePaymentInfoChange = (event) => {
     //카드정보 넣어주기
+    const { name, value } = event.target;
+
+    if (name === "number" && value.length > 16) {
+      return;
+    }
+
+    if (name === "expiry") {
+      setCardValue({ ...cardValue, expiry: cc_expires_format(value) });
+      return;
+    }
+
+    if (name === "cvc" && value.length > 3) {
+      return;
+    }
+
+    setCardValue({ ...cardValue, [name]: value });
   };
 
   const handleInputFocus = (e) => {
     setCardValue({ ...cardValue, focus: e.target.name });
   };
-  // if (cartList?.length === 0) {
-  //   navigate("/cart");
-  // }// 주문할 아이템이 없다면 주문하기로 안넘어가게 막음
+
+  // 주문할 아이템이 없다면 주문하기로 안넘어가게 막음
+  if (cartList?.length === 0) {
+    navigate("/cart");
+  }
+
   return (
     <Container>
       <Row>
@@ -122,12 +178,16 @@ const PaymentPage = () => {
                   </Form.Group>
                 </Row>
                 <div className="mobile-receipt-area">
-                  {/* <OrderReceipt /> */}
+                  <OrderReceipt cartList={cartList} totalPrice={totalPrice} />
                 </div>
                 <div>
                   <h2 className="payment-title">결제 정보</h2>
                 </div>
-
+                <PaymentForm
+                  cardValue={cardValue}
+                  handlePaymentInfoChange={handlePaymentInfoChange}
+                  handleInputFocus={handleInputFocus}
+                />
                 <Button
                   variant="dark"
                   className="payment-button pay-button"
@@ -140,7 +200,7 @@ const PaymentPage = () => {
           </div>
         </Col>
         <Col lg={5} className="receipt-area">
-          {/* <OrderReceipt  /> */}
+          <OrderReceipt cartList={cartList} totalPrice={totalPrice} />
         </Col>
       </Row>
     </Container>
