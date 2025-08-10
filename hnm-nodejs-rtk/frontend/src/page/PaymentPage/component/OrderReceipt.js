@@ -3,10 +3,12 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import { currencyFormat } from "../../../utils/number";
+import { useSelector } from "react-redux";
 
 const OrderReceipt = ({ cartList, totalPrice }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const cartQty = useSelector((state) => state.cart.cartItemCount);
 
   return (
     <div className="receipt-container">
@@ -15,8 +17,10 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
         {cartList.map((item) => (
           <li key={item._id}>
             <div className="display-flex space-between">
-              <div>{item.productId.name}</div>
-              <div>₩ {currencyFormat(item.productId.price)}</div>
+              <div>
+                {item.productId.name} {item.size.toUpperCase()} x {item.qty}
+              </div>
+              <div>₩ {currencyFormat(item.productId.price * item.qty)}</div>
             </div>
           </li>
         ))}
@@ -29,7 +33,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
           <strong>₩ {currencyFormat(totalPrice)}</strong>
         </div>
       </div>
-      {/* {location.pathname.includes("/cart") && cartList.length > 0 && (
+      {location.pathname.includes("/cart") && cartQty && (
         <Button
           variant="dark"
           className="payment-button"
@@ -37,7 +41,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
         >
           결제 계속하기
         </Button>
-      )} */}
+      )}
 
       <div>
         가능한 결제 수단 귀하가 결제 단계에 도달할 때까지 가격 및 배송료는

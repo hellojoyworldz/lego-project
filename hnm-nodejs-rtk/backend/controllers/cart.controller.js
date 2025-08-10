@@ -1,27 +1,6 @@
 const Cart = require("../models/Cart");
 const cartController = {};
 
-cartController.getCartList = async (req, res) => {
-  try {
-    const { userId } = req;
-    const carts = await Cart.find({ userId }).populate("items.productId");
-
-    res.status(200).json({ status: "success", data: carts });
-  } catch (error) {
-    res.status(400).json({ status: "failed", error: error.message });
-  }
-};
-
-cartController.getCartQty = async (req, res) => {
-  try {
-    const { userId } = req;
-    const cart = await Cart.findOne({ userId });
-    res.status(200).json({ status: "success", data: cart.items.length });
-  } catch (error) {
-    res.status(400).json({ status: "failed", error: error.message });
-  }
-};
-
 cartController.addItemToCart = async (req, res) => {
   try {
     const { userId } = req;
@@ -51,6 +30,79 @@ cartController.addItemToCart = async (req, res) => {
       data: cart,
       cartItemQty: cart.items.length,
     });
+  } catch (error) {
+    res.status(400).json({ status: "failed", error: error.message });
+  }
+};
+
+cartController.getCartList = async (req, res) => {
+  try {
+    const { userId } = req;
+    const carts = await Cart.findOne({ userId }).populate({
+      path: "items",
+      populate: {
+        path: "productId",
+        model: "Product",
+      },
+    });
+
+    res.status(200).json({ status: "success", data: carts.items });
+  } catch (error) {
+    res.status(400).json({ status: "failed", error: error.message });
+  }
+};
+
+cartController.getCartQty = async (req, res) => {
+  try {
+    const { userId } = req;
+    const cart = await Cart.findOne({ userId });
+
+    res.status(200).json({ status: "success", data: cart.items.length });
+  } catch (error) {
+    res.status(400).json({ status: "failed", error: error.message });
+  }
+};
+
+cartController.deleteCartItem = async (req, res) => {
+  try {
+    const { userId } = req;
+    const { id } = req.params;
+    let cart = await Cart.findOne({ userId }).populate("items.productId");
+
+    if (!cart) {
+      throw new Error("카트에서 삭제할 상품이 없습니다.");
+    }
+
+    const newItems = cart.items.filter((item) => !item._id.equals(id));
+    cart.items = [...newItems];
+    await cart.save();
+
+    res.status(200).json({ status: "success", data: cart.items });
+  } catch (error) {
+    res.status(400).json({ status: "failed", error: error.message });
+  }
+};
+
+cartController.updateCartItem = async (req, res) => {
+  try {
+    const { userId } = req;
+    const { id } = req.params;
+    const { qty } = req.body;
+
+    let cart = await Cart.findOne({ userId }).populate("items.productId");
+
+    if (!cart) {
+      throw new Error("카트에서 수정할 상품이 없습니다.");
+    }
+
+    const newItems = cart.items.map((item) =>
+      item._id.equals(id) ? { ...item, qty } : item
+    );
+
+    cart.items = [...newItems];
+    await cart.save();
+
+    res.status(200).json({ status: "success", data: cart.items });
   } catch (error) {
     res.status(400).json({ status: "failed", error: error.message });
   }
