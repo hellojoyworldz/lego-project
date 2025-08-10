@@ -43,14 +43,14 @@ export const addToCart = createAsyncThunk(
 
 export const getCartList = createAsyncThunk(
   "cart/getCartList",
-  async (_, { rejectWithValue, dispatch }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await api.get("/cart");
       if (response.status !== 200) {
         throw new Error(response.error);
       }
 
-      return response.data;
+      return response.data.data;
     } catch (error) {
       return rejectWithValue(error.error);
     }
@@ -59,7 +59,28 @@ export const getCartList = createAsyncThunk(
 
 export const deleteCartItem = createAsyncThunk(
   "cart/deleteCartItem",
-  async (id, { rejectWithValue, dispatch }) => {}
+  async (id, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await api.delete(`/cart/${id}`);
+
+      if (response.status !== 200) {
+        throw new Error(response.error);
+      }
+
+      dispatch(
+        showToastMessage({
+          message: "카트에서 아이템이 삭제되었습니다.",
+          status: "success",
+        })
+      );
+
+      dispatch(getCartList());
+
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.error);
+    }
+  }
 );
 
 export const updateQty = createAsyncThunk(
@@ -114,10 +135,10 @@ const cartSlice = createSlice({
       .addCase(getCartList.fulfilled, (state, action) => {
         state.loading = false;
         state.error = "";
-        console.log(action.payload);
-        state.cartList = action.payload.data[0].items;
-        state.totalPrice = action.payload.data[0].items.reduce(
-          (acc, item) => acc + item.productId.price * item.qty,
+        state.cartList = action.payload;
+        state.cartItemCount = action.payload.length;
+        state.totalPrice = action.payload.reduce(
+          (total, item) => total + item.productId.price * item.qty,
           0
         );
       })
