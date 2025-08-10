@@ -32,7 +32,14 @@ const PaymentPage = () => {
 
   useEffect(() => {
     // 오더번호를 받으면 어디로 갈까?
-  }, [orderNum]);
+    if (firstLoading) {
+      setFirstLoading(false);
+    } else {
+      if (orderNum !== "") {
+        navigate("/payment/success");
+      }
+    }
+  }, [orderNum, navigate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -62,11 +69,7 @@ const PaymentPage = () => {
           };
         }),
       })
-    ).then((result) => {
-      if (result.meta.requestStatus === "fulfilled") {
-        navigate("/account/purchase");
-      }
-    });
+    );
   };
 
   const handleFormChange = (event) => {

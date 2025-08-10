@@ -40,4 +40,19 @@ orderController.createOrder = async (req, res) => {
   }
 };
 
+orderController.getOrderList = async (req, res) => {
+  try {
+    const { userId } = req;
+    const orderList = await Order.find({ userId })
+      .populate("items.productId")
+      .sort({ createdAt: -1 });
+
+    console.log(orderList);
+
+    res.status(200).json({ status: "success", data: orderList });
+  } catch (error) {
+    res.status(400).json({ status: "failed", error: error.message });
+  }
+};
+
 module.exports = orderController;
