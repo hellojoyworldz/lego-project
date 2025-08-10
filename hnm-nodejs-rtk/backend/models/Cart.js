@@ -1,16 +1,20 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
 const CartSchema = Schema(
   {
-    userId: { type: mongoose.ObjectId, ref: "User" },
-    items: {
-      type: Array,
-      required: true,
-    },
+    userId: { type: mongoose.ObjectId, ref: "User", required: true },
+    items: [
+      {
+        productId: { type: mongoose.ObjectId, ref: "Product", required: true },
+        size: { type: String, required: true },
+        qty: { type: Number, required: true, default: 1 },
+      },
+    ],
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 CartSchema.methods.toJSON = function () {

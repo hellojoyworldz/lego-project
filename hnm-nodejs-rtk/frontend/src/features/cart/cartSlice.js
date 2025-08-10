@@ -14,12 +14,48 @@ const initialState = {
 // Async thunk actions
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
-  async ({ id, size }, { rejectWithValue, dispatch }) => {}
+  async ({ id, size }, { rejectWithValue, dispatch }) => {
+    console.log(id, size);
+    try {
+      const response = await api.post("/cart", { productId: id, size, qty: 1 });
+      if (response.status !== 200) {
+        throw new Error(response.error);
+      }
+
+      dispatch(
+        showToastMessage({
+          message: "카트에 아이템이 추가되었습니다.",
+          status: "success",
+        })
+      );
+
+      return response.data;
+    } catch (error) {
+      dispatch(
+        showToastMessage({
+          message: error.error,
+          status: "error",
+        })
+      );
+      return rejectWithValue(error.error);
+    }
+  }
 );
 
 export const getCartList = createAsyncThunk(
   "cart/getCartList",
-  async (_, { rejectWithValue, dispatch }) => {}
+  async (_, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await api.get("/cart");
+      if (response.status !== 200) {
+        throw new Error(response.error);
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.error);
+    }
+  }
 );
 
 export const deleteCartItem = createAsyncThunk(
@@ -46,7 +82,41 @@ const cartSlice = createSlice({
     },
     // You can still add reducers here for non-async actions if necessary
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(addToCart.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addToCart.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+        state.cartItemCount = action.payload.cartItemQty;
+      })
+      .addCase(addToCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    builder
+      .addCase(getCartList.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getCartList.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+        console.log(action.payload);
+        state.cartItemCount = action.payload.cartItemQty;
+        state.cartList = action.payload.data[0].items;
+        state.totalPrice = action.payload.data[0].items.reduce(
+          (acc, item) => acc + item.productId.price * item.qty,
+          0
+        );
+      })
+      .addCase(getCartList.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  },
 });
 
 export default cartSlice.reducer;
