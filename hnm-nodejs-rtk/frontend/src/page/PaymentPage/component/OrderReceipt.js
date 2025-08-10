@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const OrderReceipt = ({ cartList, totalPrice }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const cartQty = useSelector((state) => state.cart.cartItemCount);
+  const { cartItemCount } = useSelector((state) => state.cart);
 
   return (
     <div className="receipt-container">
@@ -33,7 +33,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
           <strong>₩ {currencyFormat(totalPrice)}</strong>
         </div>
       </div>
-      {location.pathname.includes("/cart") && cartQty && (
+      {location.pathname.includes("/cart") && cartItemCount > 0 && (
         <Button
           variant="dark"
           className="payment-button"
