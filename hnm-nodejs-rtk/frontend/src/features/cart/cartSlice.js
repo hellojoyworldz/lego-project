@@ -74,8 +74,6 @@ export const deleteCartItem = createAsyncThunk(
         })
       );
 
-      dispatch(getCartList());
-
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.error);
@@ -85,7 +83,19 @@ export const deleteCartItem = createAsyncThunk(
 
 export const updateQty = createAsyncThunk(
   "cart/updateQty",
-  async ({ id, value }, { rejectWithValue }) => {}
+  async ({ id, value }, { rejectWithValue }) => {
+    try {
+      const response = await api.put(`/cart/${id}`, { qty: value });
+
+      if (response.status !== 200) {
+        throw new Error(response.error);
+      }
+
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.error);
+    }
+  }
 );
 
 export const getCartQty = createAsyncThunk(
@@ -157,6 +167,45 @@ const cartSlice = createSlice({
         state.cartItemCount = action.payload;
       })
       .addCase(getCartQty.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    builder
+      .addCase(deleteCartItem.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteCartItem.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+        console.log(action.payload);
+        state.cartList = action.payload;
+        state.cartItemCount = action.payload.length;
+        state.totalPrice = action.payload.reduce(
+          (total, item) => total + item.productId.price * item.qty,
+          0
+        );
+      })
+      .addCase(deleteCartItem.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    builder
+      .addCase(updateQty.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateQty.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+        state.cartList = action.payload;
+        state.cartItemCount = action.payload.length;
+        state.totalPrice = action.payload.reduce(
+          (total, item) => total + item.productId.price * item.qty,
+          0
+        );
+      })
+      .addCase(updateQty.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
