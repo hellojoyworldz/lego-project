@@ -81,7 +81,27 @@ export const getOrderList = createAsyncThunk(
 
 export const updateOrder = createAsyncThunk(
   "order/updateOrder",
-  async ({ id, status }, { dispatch, rejectWithValue }) => {}
+  async ({ id, status }, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await api.put(`/order/${id}`, { status });
+
+      if (response.status !== 200) {
+        throw new Error(response.error);
+      }
+
+      dispatch(getOrderList({ page: 1 }));
+
+      dispatch(
+        showToastMessage({
+          message: "주문 상태가 변경되었습니다.",
+          status: "success",
+        })
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
 );
 
 // Order slice

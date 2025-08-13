@@ -91,4 +91,16 @@ orderController.getOrderList = async (req, res) => {
   }
 };
 
+orderController.updateOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const order = await Order.findByIdAndUpdate(id, { status }, { new: true });
+
+    res.status(200).json({ status: "success", data: order });
+  } catch (error) {
+    res.status(400).json({ status: "failed", error: error.message });
+  }
+};
 module.exports = orderController;
