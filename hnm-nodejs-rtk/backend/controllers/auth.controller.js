@@ -27,6 +27,14 @@ authController.loginWithEmail = async (req, res) => {
   }
 };
 
+authController.loginWithGoogle = async (req, res) => {
+  try {
+    const { token } = req.body;
+  } catch (error) {
+    res.status(400).json({ status: "failed", error: error.message });
+  }
+};
+
 authController.authenticate = async (req, res, next) => {
   try {
     const tokenString = req.headers["authorization"];
