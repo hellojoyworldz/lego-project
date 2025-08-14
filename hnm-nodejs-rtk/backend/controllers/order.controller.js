@@ -15,12 +15,14 @@ orderController.createOrder = async (req, res) => {
     );
 
     if (insufficientStockItems.length > 0) {
-      const errorMessage = insufficientStockItems.reduce((total, item) => {
-        total += item.message;
-        return total;
-      }, "");
+      const errorMessage = insufficientStockItems.map((item) => {
+        return {
+          message: item.message,
+        };
+      });
 
-      throw new Error(errorMessage);
+      res.status(400).json({ status: "failed", error: errorMessage });
+      return;
     }
 
     // 주문

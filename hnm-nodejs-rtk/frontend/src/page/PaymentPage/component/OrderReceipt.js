@@ -10,6 +10,10 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
   const navigate = useNavigate();
   const { cartItemCount } = useSelector((state) => state.cart);
 
+  if (totalPrice <= 0) {
+    return <></>;
+  }
+
   return (
     <div className="receipt-container">
       <h3 className="receipt-title">주문 내역</h3>
@@ -20,7 +24,12 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
               <div>
                 {item.productId.name} {item.size.toUpperCase()} x {item.qty}
               </div>
-              <div>₩ {currencyFormat(item.productId.price * item.qty)}</div>
+
+              {item.productId.stock[item.size] <= 0 ? (
+                <div style={{ color: "red" }}>SOLD OUT</div>
+              ) : (
+                <div>₩ {currencyFormat(item.productId.price * item.qty)}</div>
+              )}
             </div>
           </li>
         ))}
@@ -33,15 +42,17 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
           <strong>₩ {currencyFormat(totalPrice)}</strong>
         </div>
       </div>
-      {location.pathname.includes("/cart") && cartItemCount > 0 && (
-        <Button
-          variant="dark"
-          className="payment-button"
-          onClick={() => navigate("/payment")}
-        >
-          결제 계속하기
-        </Button>
-      )}
+      {location.pathname.includes("/cart") &&
+        cartItemCount > 0 &&
+        totalPrice > 0 && (
+          <Button
+            variant="dark"
+            className="payment-button"
+            onClick={() => navigate("/payment")}
+          >
+            결제 계속하기
+          </Button>
+        )}
 
       <div>
         가능한 결제 수단 귀하가 결제 단계에 도달할 때까지 가격 및 배송료는

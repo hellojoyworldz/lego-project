@@ -34,13 +34,16 @@ export const createOrder = createAsyncThunk(
 
       return response.data.orderNum;
     } catch (error) {
-      dispatch(
-        showToastMessage({
-          message: error.message,
-          status: "error",
-        })
+      error.error.map((item) =>
+        dispatch(
+          showToastMessage({
+            message: item.message,
+            status: "error",
+          })
+        )
       );
-      return rejectWithValue(error.message);
+
+      return rejectWithValue(error.error);
     }
   }
 );
@@ -112,6 +115,9 @@ const orderSlice = createSlice({
     setSelectedOrder: (state, action) => {
       state.selectedOrder = action.payload;
     },
+    clearError: (state) => {
+      state.error = "";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -121,11 +127,12 @@ const orderSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         state.loading = false;
         state.error = "";
+
         state.orderNum = action.payload;
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.createOrderError = action.payload;
       });
 
     builder
@@ -134,6 +141,8 @@ const orderSlice = createSlice({
       })
       .addCase(getOrder.fulfilled, (state, action) => {
         state.loading = false;
+        state.error = "";
+
         state.orderList = action.payload;
       })
       .addCase(getOrder.rejected, (state, action) => {
@@ -158,5 +167,5 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setSelectedOrder } = orderSlice.actions;
+export const { setSelectedOrder, clearError } = orderSlice.actions;
 export default orderSlice.reducer;
