@@ -10,6 +10,7 @@ import {
   editProduct,
   getProductList,
 } from "../../../features/product/productSlice";
+import { useSearchParams } from "react-router-dom";
 
 const InitialFormData = {
   name: "",
@@ -23,6 +24,9 @@ const InitialFormData = {
 };
 
 const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page") || 1;
+
   const { error, success, selectedProduct } = useSelector(
     (state) => state.product
   );
@@ -94,11 +98,17 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
     if (mode === "new") {
       //새 상품 만들기
-      dispatch(createProduct({ ...formData, stock: totalStock }));
+      dispatch(createProduct({ ...formData, page: 1, stock: totalStock }));
     } else {
       // 상품 수정하기
+
       dispatch(
-        editProduct({ id: selectedProduct._id, ...formData, stock: totalStock })
+        editProduct({
+          id: selectedProduct._id,
+          page,
+          ...formData,
+          stock: totalStock,
+        })
       );
     }
   };
