@@ -11,7 +11,9 @@ const OrderStatusCard = ({ orderItem }) => {
           <img
             src={orderItem.items[0]?.productId?.image}
             alt={orderItem.items[0]?.productId?.image}
+            width={96}
             height={96}
+            style={{ objectFit: "contain" }}
           />
         </Col>
         <Col xs={8} className="order-info">

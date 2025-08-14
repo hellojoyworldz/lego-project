@@ -6,11 +6,11 @@ import OrderReceipt from "./component/OrderReceipt";
 import PaymentForm from "./component/PaymentForm";
 import "./style/paymentPage.style.css";
 import { cc_expires_format } from "../../utils/number";
-import { createOrder } from "../../features/order/orderSlice";
+import { createOrder, clearError } from "../../features/order/orderSlice";
 
 const PaymentPage = () => {
   const dispatch = useDispatch();
-  const { orderNum } = useSelector((state) => state.order);
+  const { orderNum, createOrderError } = useSelector((state) => state.order);
   const { cartList, totalPrice } = useSelector((state) => state.cart);
   const [cardValue, setCardValue] = useState({
     cvc: "",
@@ -29,10 +29,30 @@ const PaymentPage = () => {
     city: "",
     zip: "",
   });
+  const filteredCartList = cartList.filter(
+    (item) => item.productId.stock[item.size] > 0
+  );
+
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
 
   useEffect(() => {
     // 오더번호를 받으면 어디로 갈까?
-  }, [orderNum]);
+    if (firstLoading) {
+      setFirstLoading(false);
+    } else {
+      if (orderNum !== "") {
+        navigate("/payment/success");
+      }
+    }
+  }, [orderNum, navigate]);
+
+  useEffect(() => {
+    if (createOrderError?.length > 0) {
+      navigate("/cart");
+    }
+  }, [createOrderError, navigate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -53,20 +73,18 @@ const PaymentPage = () => {
           lastName,
           contact,
         },
-        orderList: cartList.map((item) => {
-          return {
-            productId: item.productId._id,
-            price: item.productId.price,
-            qty: item.qty,
-            size: item.size,
-          };
-        }),
+        orderList: cartList
+          .filter((item) => item.productId.stock[item.size] > 0)
+          .map((item) => {
+            return {
+              productId: item.productId._id,
+              price: item.productId.price,
+              qty: item.qty,
+              size: item.size,
+            };
+          }),
       })
-    ).then((result) => {
-      if (result.meta.requestStatus === "fulfilled") {
-        navigate("/account/purchase");
-      }
-    });
+    );
   };
 
   const handleFormChange = (event) => {
@@ -178,7 +196,10 @@ const PaymentPage = () => {
                   </Form.Group>
                 </Row>
                 <div className="mobile-receipt-area">
-                  <OrderReceipt cartList={cartList} totalPrice={totalPrice} />
+                  <OrderReceipt
+                    cartList={filteredCartList}
+                    totalPrice={totalPrice}
+                  />
                 </div>
                 <div>
                   <h2 className="payment-title">결제 정보</h2>
@@ -200,7 +221,7 @@ const PaymentPage = () => {
           </div>
         </Col>
         <Col lg={5} className="receipt-area">
-          <OrderReceipt cartList={cartList} totalPrice={totalPrice} />
+          <OrderReceipt cartList={filteredCartList} totalPrice={totalPrice} />
         </Col>
       </Row>
     </Container>

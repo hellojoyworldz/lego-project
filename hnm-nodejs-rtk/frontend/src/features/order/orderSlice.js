@@ -34,30 +34,77 @@ export const createOrder = createAsyncThunk(
 
       return response.data.orderNum;
     } catch (error) {
-      dispatch(
-        showToastMessage({
-          message: error.message,
-          status: "error",
-        })
+      error.error.map((item) =>
+        dispatch(
+          showToastMessage({
+            message: item.message,
+            status: "error",
+          })
+        )
       );
-      return rejectWithValue(error.message);
+
+      return rejectWithValue(error.error);
     }
   }
 );
 
 export const getOrder = createAsyncThunk(
   "order/getOrder",
-  async (_, { rejectWithValue, dispatch }) => {}
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/order/me");
+
+      if (response.status !== 200) {
+        throw new Error(response.error);
+      }
+
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
 );
 
 export const getOrderList = createAsyncThunk(
   "order/getOrderList",
-  async (query, { rejectWithValue, dispatch }) => {}
+  async (query, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/order", { params: { ...query } });
+
+      if (response.status !== 200) {
+        throw new Error(response.error);
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
 );
 
 export const updateOrder = createAsyncThunk(
   "order/updateOrder",
-  async ({ id, status }, { dispatch, rejectWithValue }) => {}
+  async ({ id, status }, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await api.put(`/order/${id}`, { status });
+
+      if (response.status !== 200) {
+        throw new Error(response.error);
+      }
+
+      dispatch(getOrderList({ page: 1 }));
+
+      dispatch(
+        showToastMessage({
+          message: "주문 상태가 변경되었습니다.",
+          status: "success",
+        })
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
 );
 
 // Order slice
@@ -68,6 +115,9 @@ const orderSlice = createSlice({
     setSelectedOrder: (state, action) => {
       state.selectedOrder = action.payload;
     },
+    clearError: (state) => {
+      state.error = "";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -77,14 +127,45 @@ const orderSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         state.loading = false;
         state.error = "";
+
         state.orderNum = action.payload;
       })
       .addCase(createOrder.rejected, (state, action) => {
+        state.loading = false;
+        state.createOrderError = action.payload;
+      });
+
+    builder
+      .addCase(getOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getOrder.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+
+        state.orderList = action.payload;
+      })
+      .addCase(getOrder.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    builder
+      .addCase(getOrderList.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getOrderList.fulfilled, (state, action) => {
+        state.loading = false;
+        state.orderList = action.payload.data;
+        state.totalPageNum = action.payload.totalPageNum;
+        state.error = "";
+      })
+      .addCase(getOrderList.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
   },
 });
 
-export const { setSelectedOrder } = orderSlice.actions;
+export const { setSelectedOrder, clearError } = orderSlice.actions;
 export default orderSlice.reducer;
