@@ -6,7 +6,7 @@ import { initialCart } from "../cart/cartSlice";
 
 export const loginWithEmail = createAsyncThunk(
   "user/loginWithEmail",
-  async ({ email, password }, { dispatch, rejectWithValue }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await api.post("/auth/login", {
         email,
@@ -29,13 +29,10 @@ export const loginWithGoogle = createAsyncThunk(
     try {
       const response = await api.post("/auth/google", { token });
 
-      if (response.status !== 200) {
-        throw new Error(response.error);
-      }
-
       sessionStorage.setItem("token", response.data.token);
       api.defaults.headers["Authorization"] = `Bearer ${response.data.token}`;
 
+      console.log("response", response);
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.error);
@@ -139,16 +136,17 @@ const userSlice = createSlice({
         state.loginError = action.payload;
       });
 
+    // loginWithGoogle
     builder
-      .addCase(loginWithGoogle.fulfilled, (state) => {
+      .addCase(loginWithGoogle.pending, (state) => {
         state.loading = true;
       })
-      .addCase(loginWithGoogle.rejected, (state, action) => {
+      .addCase(loginWithGoogle.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
         state.loginError = null;
       })
-      .addCase(loginWithGoogle.pending, (state, action) => {
+      .addCase(loginWithGoogle.rejected, (state, action) => {
         state.loading = false;
         state.loginError = action.payload;
       });

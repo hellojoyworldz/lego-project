@@ -2,7 +2,10 @@ const { User } = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { UserLevelTypeEnum } = require("../models/User");
+const { OAuth2Client } = require("google-auth-library");
 require("dotenv").config();
+
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const authController = {};
 
 authController.loginWithEmail = async (req, res) => {
@@ -30,6 +33,34 @@ authController.loginWithEmail = async (req, res) => {
 authController.loginWithGoogle = async (req, res) => {
   try {
     const { token } = req.body;
+
+    const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
+    const ticket = await googleClient.verifyIdToken({
+      idToken: token.credential,
+      audience: GOOGLE_CLIENT_ID,
+    });
+
+    const { email, name } = ticket.getPayload();
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      const randomPassword = "" + Math.floor(Math.random() * 10000000);
+      const salt = await bcrypt.genSaltSync(10);
+      const hashedPassword = await bcrypt.hash(randomPassword, salt);
+
+      const newUser = new User({ email, name, password: hashedPassword });
+      await newUser.save();
+
+      const sessionToken = await newUser.generateToken();
+      return res
+        .status(200)
+        .json({ status: "success", data: newUser, token: sessionToken });
+    }
+
+    const sessionToken = await user.generateToken();
+    return res
+      .status(200)
+      .json({ status: "success", data: user, token: sessionToken });
   } catch (error) {
     res.status(400).json({ status: "failed", error: error.message });
   }
