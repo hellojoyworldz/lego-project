@@ -25,7 +25,7 @@ const OrderTable = ({ header, data, openEditForm }) => {
                 <th>{page - 1 > 0 ? index + 1 + (page - 1) * 5 : index + 1}</th>
                 <th>{item.orderNum}</th>
                 <th>{item.createdAt.slice(0, 10)}</th>
-                <th>{item.userId.email}</th>
+                <th>{item.userId?.email || "Unknown"}</th>
                 {item.items.length > 0 ? (
                   <th>
                     {item.items[0].productId.name}
