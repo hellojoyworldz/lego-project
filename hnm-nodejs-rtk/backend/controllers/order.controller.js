@@ -48,6 +48,7 @@ orderController.getOrder = async (req, res) => {
     const { userId } = req;
     const orderList = await Order.find({ userId })
       .populate("items.productId")
+      .populate("userId", "email")
       .sort({ createdAt: -1 });
 
     res.status(200).json({ status: "success", data: orderList });
@@ -73,6 +74,7 @@ orderController.getOrderList = async (req, res) => {
       : {};
     let query = Order.find(cond)
       .populate("items.productId")
+      .populate("userId", "email")
       .sort({ createdAt: -1 });
     let response = { status: "success" };
 

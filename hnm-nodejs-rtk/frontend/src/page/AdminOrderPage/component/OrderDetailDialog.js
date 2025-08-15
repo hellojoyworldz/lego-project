@@ -21,6 +21,8 @@ const OrderDetailDialog = ({ open, handleClose }) => {
   if (!selectedOrder) {
     return <></>;
   }
+
+  console.log(selectedOrder);
   return (
     <Modal show={open} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -29,7 +31,7 @@ const OrderDetailDialog = ({ open, handleClose }) => {
       <Modal.Body>
         <p>예약번호: {selectedOrder.orderNum}</p>
         <p>주문날짜: {selectedOrder.createdAt.slice(0, 10)}</p>
-        <p>이메일: {selectedOrder.userId.email}</p>
+        <p>이메일: {selectedOrder.userId?.email || "Unknown"}</p>
         <p>
           주소:{selectedOrder.shipTo.address + " " + selectedOrder.shipTo.city}
         </p>
